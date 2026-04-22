@@ -7,6 +7,9 @@ from urllib.parse import quote
 API_KEY = "Bitx-Jithula2356"
 API_BASE = "https://bit-x-apis.vercel.app/talkai"
 
+# Available models in order of preference
+MODELS = ["writify", "claude", "dolphin", "overchat"]
+
 def clean_translation(text):
     """
     Cleans the translated text by fixing extra spaces and specific Sinhala character spacing issues.
@@ -18,56 +21,55 @@ def clean_translation(text):
     text = re.sub(r'\n+', '\n', text)          # multiple newlines → single newline
     
     # 2. Fix specific Sinhala character spacing issues (e.g., spaces between characters and modifiers)
-    # Common Sinhala modifiers: ්, ා, ැ, ෑ, ි, ී, ු, ූ, ෘ, ෙ, ේ, ෛ, ො, ෝ, ෞ, ෟ, ෲ, ෳ
     sinhala_modifiers = r'[\u0DCA\u0DCF\u0DD0\u0DD1\u0DD2\u0DD3\u0DD4\u0DD6\u0DD8\u0DD9\u0DDA\u0DDB\u0DDC\u0DDD\u0DDE\u0DDF\u0DF2\u0DF3]'
     text = re.sub(f' ({sinhala_modifiers})', r'\1', text)
     
     return text.strip()
 
-def translate_text(text, target_lang="Sinhala", retries=3, delay=5):
+def translate_text(text, target_lang="Sinhala", retries=2, delay=3):
     clean_text = text.strip()
     if not clean_text or re.match(r'^--==.*==--$', clean_text) or "moviesnipipay" in clean_text.lower():
         return text
 
-    # Explicitly instruct the AI not to add extra spaces between characters
-    prompt = f"Translate the following movie subtitle text into natural and accurate {target_lang}. Ensure there are no extra spaces between characters or within words. Only return the translated text: {clean_text}"
-    encoded_prompt = quote(prompt)
-    api_url = f"{API_BASE}?apikey={API_KEY}&q={encoded_prompt}"
+    # Try each model in the list until one works
+    for model in MODELS:
+        prompt = f"Translate the following movie subtitle text into natural and accurate {target_lang}. Ensure there are no extra spaces between characters or within words. Only return the translated text: {clean_text}"
+        encoded_prompt = quote(prompt)
+        # Assuming the API uses 'model' parameter to switch models
+        api_url = f"{API_BASE}?apikey={API_KEY}&model={model}&q={encoded_prompt}"
 
-    for attempt in range(1, retries + 1):
-        try:
-            response = requests.get(api_url, timeout=30)
+        for attempt in range(1, retries + 1):
+            try:
+                response = requests.get(api_url, timeout=30)
 
-            if response.status_code == 200:
-                data = response.json()
-                if data.get("status") is True:
-                    translated = data.get("response", "").strip()
-                    if translated:
-                        return clean_translation(translated)
-                print(f"[!] Unexpected response structure: {data}")
-                return text
+                if response.status_code == 200:
+                    data = response.json()
+                    if data.get("status") is True:
+                        translated = data.get("response", "").strip()
+                        if translated:
+                            return clean_translation(translated)
+                    
+                    print(f"[!] Model '{model}' returned unexpected structure. Trying next model...")
+                    break # Break inner loop to try next model
 
-            elif response.status_code == 429:
-                wait = delay * attempt
-                print(f"[!] Rate limited. Waiting {wait}s before retry {attempt}/{retries}...")
-                time.sleep(wait)
+                elif response.status_code == 429:
+                    wait = delay * attempt
+                    print(f"[!] Rate limited on '{model}'. Waiting {wait}s...")
+                    time.sleep(wait)
+                
+                elif response.status_code == 401:
+                    print("[!] Invalid API key. Stopping.")
+                    return text
 
-            elif response.status_code == 401:
-                print("[!] Invalid API key. Please check your credentials.")
-                return text
+                else:
+                    print(f"[!] HTTP {response.status_code} on model '{model}'. Trying next...")
+                    break # Try next model
 
-            else:
-                print(f"[!] HTTP {response.status_code} on attempt {attempt}/{retries}")
-                time.sleep(delay)
+            except Exception as e:
+                print(f"[!] Error with model '{model}': {e}")
+                break # Try next model
 
-        except requests.exceptions.Timeout:
-            print(f"[!] Timeout on attempt {attempt}/{retries}. Retrying...")
-            time.sleep(delay)
-        except Exception as e:
-            print(f"[!] Error on attempt {attempt}/{retries}: {e}")
-            time.sleep(delay)
-
-    print(f"[!] All {retries} attempts failed. Keeping original text.")
+    print(f"[!] All models failed for this block. Keeping original text.")
     return text
 
 
@@ -79,10 +81,10 @@ def process_srt(input_path, output_path, target_lang="Sinhala"):
     with open(input_path, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # Split by double newlines to get subtitle blocks
     blocks = re.split(r'\n\s*\n', content.strip())
     total = len(blocks)
     print(f"Total blocks to process: {total}")
+    print(f"Using models: {', '.join(MODELS)} (Main: {MODELS[0]})")
 
     translated_blocks = []
 
@@ -99,7 +101,7 @@ def process_srt(input_path, output_path, target_lang="Sinhala"):
         if (i + 1) % 5 == 0:
             print(f"Processed {i + 1}/{total} blocks...")
 
-        time.sleep(0.5)
+        time.sleep(0.2) # Reduced delay as we have multiple models
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write('\n\n'.join(translated_blocks))
@@ -108,14 +110,11 @@ def process_srt(input_path, output_path, target_lang="Sinhala"):
 
 if __name__ == "__main__":
     # --- CONFIGURATION ---
-    # Make sure the 'Subtitles' folder exists and contains your file
     input_file = "Subtitles/Scissor.Seven.S05E05.1080p.NF.WEB-DL.DUAL.AAC2.0.H.srt"
     output_file = "Scissor.Seven.S05E05.1080p.NF.WEB-DL.DUAL.AAC2.0.H_sinhala.srt"
     target_language = "Sinhala"
 
-    # Check if input file exists before running
     if os.path.exists(input_file):
         process_srt(input_file, output_file, target_language)
     else:
         print(f"Error: Could not find the input file at {input_file}")
-        print("Please make sure the 'Subtitles' folder exists and contains the .srt file.")
