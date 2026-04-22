@@ -19,13 +19,8 @@ def clean_translation(text):
     
     # 2. Fix specific Sinhala character spacing issues (e.g., spaces between characters and modifiers)
     # Common Sinhala modifiers: ්, ා, ැ, ෑ, ි, ී, ු, ූ, ෘ, ෙ, ේ, ෛ, ො, ෝ, ෞ, ෟ, ෲ, ෳ
-    # If the API returns spaces between a base character and its modifier, we remove them.
     sinhala_modifiers = r'[\u0DCA\u0DCF\u0DD0\u0DD1\u0DD2\u0DD3\u0DD4\u0DD6\u0DD8\u0DD9\u0DDA\u0DDB\u0DDC\u0DDD\u0DDE\u0DDF\u0DF2\u0DF3]'
     text = re.sub(f' ({sinhala_modifiers})', r'\1', text)
-    
-    # 3. Remove spaces between Sinhala characters if they look like they should be joined
-    # This is a heuristic: if we see a space between two Sinhala characters where the first is not a word ender
-    # but the API split it, we might need to be careful. However, the most common issue is modifiers.
     
     return text.strip()
 
@@ -84,6 +79,7 @@ def process_srt(input_path, output_path, target_lang="Sinhala"):
     with open(input_path, 'r', encoding='utf-8') as f:
         content = f.read()
 
+    # Split by double newlines to get subtitle blocks
     blocks = re.split(r'\n\s*\n', content.strip())
     total = len(blocks)
     print(f"Total blocks to process: {total}")
@@ -111,13 +107,15 @@ def process_srt(input_path, output_path, target_lang="Sinhala"):
 
 
 if __name__ == "__main__":
-    # Example usage configuration
+    # --- CONFIGURATION ---
+    # Make sure the 'Subtitles' folder exists and contains your file
     input_file = "Subtitles/Scissor.Seven.S05E05.1080p.NF.WEB-DL.DUAL.AAC2.0.H.srt"
     output_file = "Scissor.Seven.S05E05.1080p.NF.WEB-DL.DUAL.AAC2.0.H_sinhala.srt"
     target_language = "Sinhala"
 
-    # Ensure the Subtitles directory exists for the example to run if needed
-    if not os.path.exists("Subtitles"):
-        os.makedirs("Subtitles")
-
-    # process_srt(input_file, output_file, target_language)
+    # Check if input file exists before running
+    if os.path.exists(input_file):
+        process_srt(input_file, output_file, target_language)
+    else:
+        print(f"Error: Could not find the input file at {input_file}")
+        print("Please make sure the 'Subtitles' folder exists and contains the .srt file.")
