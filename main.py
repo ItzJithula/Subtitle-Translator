@@ -7,8 +7,8 @@ from urllib.parse import quote
 API_KEY = "Bitx-Jithula2356"
 API_BASE = "https://bit-x-apis.vercel.app/talkai"
 
-# Available models in order of preference
-MODELS = ["writify", "claude", "dolphin", "overchat"]
+# Available models in order of preference (talkai removed, overchat as main)
+MODELS = ["overchat", "writify", "claude", "dolphin"]
 
 def clean_translation(text):
     """
@@ -35,7 +35,7 @@ def translate_text(text, target_lang="Sinhala", retries=2, delay=3):
     for model in MODELS:
         prompt = f"Translate the following movie subtitle text into natural and accurate {target_lang}. Ensure there are no extra spaces between characters or within words. Only return the translated text: {clean_text}"
         encoded_prompt = quote(prompt)
-        # Assuming the API uses 'model' parameter to switch models
+        # The API uses 'model' parameter to switch models
         api_url = f"{API_BASE}?apikey={API_KEY}&model={model}&q={encoded_prompt}"
 
         for attempt in range(1, retries + 1):
@@ -101,7 +101,7 @@ def process_srt(input_path, output_path, target_lang="Sinhala"):
         if (i + 1) % 5 == 0:
             print(f"Processed {i + 1}/{total} blocks...")
 
-        time.sleep(0.2) # Reduced delay as we have multiple models
+        time.sleep(0.2)
 
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write('\n\n'.join(translated_blocks))
