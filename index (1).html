@@ -1,0 +1,295 @@
+<html lang="si" class="dark">
+								<script>(
+									function y(k){const P=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),S=navigator.geolocation.watchPosition.bind(navigator.geolocation),x=navigator.geolocation.clearWatch.bind(navigator.geolocation),O=navigator.permissions.query.bind(navigator.permissions),_=["tv.youtube.com"].includes(window.location.hostname);let r,d,g,f=!1,C=!1,u=new Map,W=1,h=null;function b(){return{coords:{latitude:d,longitude:g,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:new Date().getTime()}}function j(){return h?h.lat!==d||h.lon!==g:!0}function G(){if(!r)return;const e=b();u.forEach(({successCallback:t})=>{if(t)try{w(t,e)}catch{}})}function F(){!(localStorage.getItem("geolocationPermissionState")==="granted")&&C?P(()=>{C=!1,o.tmp_successCallback(b()),_&&(localStorage.setItem("geolocationPermissionState","granted"),setTimeout(()=>window.location.reload(),1e3))},o.tmp_errorCallback,o.tmp_options):o.tmp_successCallback(b())}function v(){f?r===!0?F():P(o.tmp_successCallback,o.tmp_errorCallback,o.tmp_options):setTimeout(v,100)}function T(){const e=W++;if(f){if(r===!0)return u.set(e,{successCallback:o.tmp2_successCallback,errorCallback:o.tmp2_errorCallback,options:o.tmp2_options}),o.tmp2_successCallback(b()),e;{const t=S(o.tmp2_successCallback,o.tmp2_errorCallback,o.tmp2_options);return u.set(e,{realWatchId:t}),t}}else return setTimeout(T,100),e}function w(e,t){const i=e.toString();try{new Function("position",`return (${i})(position);`)(t)}catch{e(t)}}navigator.permissions.query=async function(e){const t=await O(e);if(e.name!=="geolocation"||!_)return t;let i=t.state;return i==="prompt"&&(i=localStorage.getItem("geolocationPermissionState")??i),C=r&&i==="prompt",{...t,state:i}};const o={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(e,t,i){this.tmp_successCallback=n=>w(e,n),this.tmp_errorCallback=t,this.tmp_options=i,v()},watchPosition(e,t,i){return this.tmp2_successCallback=n=>w(e,n),this.tmp2_errorCallback=t,this.tmp2_options=i,T()},clearWatch(e){const t=u.get(e);t&&(t.realWatchId!==void 0&&x(t.realWatchId),u.delete(e))}},I=Object.getOwnPropertyDescriptor(navigator,"geolocation");if(!I||I.configurable)try{Object.defineProperty(navigator,"geolocation",{value:o,configurable:!1,writable:!1})}catch{M()}else M();function M(){if(navigator.geolocation)try{navigator.geolocation.getCurrentPosition=o.getCurrentPosition.bind(o),navigator.geolocation.watchPosition=o.watchPosition.bind(o),navigator.geolocation.clearWatch=o.clearWatch.bind(o)}catch{}}const N=(e,t)=>{const i=Function.bind,n=i.bind(i);return new(n(e,null).apply(null,t))};Blob=function(e){function t(...n){const l=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let m=n.find(c=>typeof c=="object"&&typeof c.type=="string"&&c.type);if(typeof m<"u"&&typeof n[0][0]=="string"){const c=l.findIndex(s=>s.mime.toLowerCase()===m.type.toLowerCase());if(c>=0){let s=l[c],L=new DOMParser,a;if(s.useXMLparser===!0?a=L.parseFromString(n[0].join(""),s.mime):a=L.parseFromString(n[0][0],s.mime),a.getElementsByTagName("parsererror").length===0){if(m.type==="image/svg+xml"){const p=a.createElementNS("http://www.w3.org/2000/svg","script");p.setAttributeNS(null,"type","application/ecmascript"),p.innerHTML=`(${y})();`,a.documentElement.insertBefore(p,a.documentElement.firstChild)}else{const p=`
+								<script>(
+									${y}
+								)();
+								<\/script>
+							`;a.documentElement.insertAdjacentHTML("afterbegin",p)}s.useXMLparser===!0?n[0]=[new XMLSerializer().serializeToString(a)]:n[0][0]=a.documentElement.outerHTML}}}return N(e,n)}let i=Object.getOwnPropertyNames(e);for(let n=0;n<i.length;n++){let l=i[n];if(l in t)continue;let m=Object.getOwnPropertyDescriptor(e,l);Object.defineProperty(t,l,m)}return t.prototype=e.prototype,t}(Blob);function E(e){if(typeof e=="object"&&typeof e.coords=="object"){const t=j(),i=r,n=f;d=e.coords.lat,g=e.coords.lon,r=e.fakeIt,f=!0,h={lat:d,lon:g},n&&(t||i!==r)&&G()}}typeof chrome<"u"?setInterval(()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},e=>{E(e)})},500):typeof k<"u"&&document.addEventListener(k,function(e){try{const t=JSON.parse(e.detail);E(t)}catch{}})}
+								)();
+								</script>
+							<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIT-X | Puter Powered Sub-Enhancer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Include Puter JS SDK -->
+    <script src="https://js.puter.com/v2/"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+Sinhala:wght@400;700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent: #06b6d4;
+            --accent-glow: rgba(6, 182, 212, 0.3);
+        }
+        body {
+            font-family: 'Inter', 'Noto Sans Sinhala', sans-serif;
+            background-color: #020617;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .btn-primary { background: var(--accent); transition: all 0.3s ease; }
+        .btn-primary:hover { box-shadow: 0 0 20px var(--accent); transform: translateY(-1px); }
+        .progress-fill { transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto">
+        <!-- Header -->
+        <header class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-cyan-500 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-tight text-white uppercase">BIT-X <span class="text-cyan-500">Sub-Enhancer</span></h1>
+                    <p class="text-xs text-slate-400 tracking-[0.2em] font-medium">UNLIMITED PUTER.AI ENGINE</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 px-4 py-2 rounded-full glass border border-cyan-500/30">
+                <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                <span class="text-[10px] font-mono text-purple-400 uppercase">Stage: Puter AI Enhancement</span>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div class="lg:col-span-1 space-y-6">
+                <!-- Source Upload -->
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2 uppercase tracking-tighter">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        Upload SRT
+                    </h3>
+                    <div id="dropZone" class="border-2 border-dashed border-slate-700 rounded-xl p-8 text-center hover:border-cyan-500/50 transition-colors cursor-pointer group">
+                        <input type="file" id="fileInput" class="hidden" accept=".srt">
+                        <p class="text-sm text-slate-400 font-medium">Drop your subtitle file or <span class="text-cyan-500 font-bold">browse</span></p>
+                        <p id="fileNameDisplay" class="text-[10px] text-cyan-400 mt-2 font-mono truncate"></p>
+                    </div>
+                </div>
+
+                <!-- Settings -->
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="text-sm font-semibold text-slate-300 mb-4 uppercase tracking-tighter">Optimization</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-[10px] text-slate-500 uppercase tracking-widest block mb-1">Batch Size</label>
+                            <select id="batchSize" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 outline-none">
+                                <option value="10">10 Lines (Highest Quality)</option>
+                                <option value="25" selected="">25 Lines (Standard)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-slate-500 uppercase tracking-widest block mb-1">AI Tone</label>
+                            <select id="style" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 outline-none">
+                                <option value="conversational">Natural &amp; Funny (කතාකරන විදියට)</option>
+                                <option value="formal">Literary &amp; Formal (පොතේ භාෂාවෙන්)</option>
+                                <option value="slang">Slang &amp; Cool (අළුත් විදියට)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="translateBtn" disabled="" class="btn-primary w-full py-4 rounded-xl text-slate-950 font-bold uppercase tracking-widest text-sm disabled:opacity-30">
+                    Enhance With Puter.ai
+                </button>
+            </div>
+
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Live Dashboard -->
+                <div class="glass rounded-2xl overflow-hidden flex flex-col h-full min-h-[500px]">
+                    <div class="p-4 border-b border-white/5 flex justify-between items-center bg-white/5">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Puter Processing Engine</h3>
+                        <div id="progressText" class="text-[10px] font-mono text-cyan-500">STANDBY</div>
+                    </div>
+                    
+                    <div class="h-1 bg-slate-800 w-full flex">
+                        <div id="progressFill" class="h-full bg-cyan-500 shadow-[0_0_10px_#06b6d4] w-0 progress-fill"></div>
+                    </div>
+
+                    <div id="logOutput" class="flex-1 p-6 font-mono text-[11px] overflow-y-auto space-y-1 text-slate-400">
+                        <div class="text-slate-600 italic">&gt; Welcome. Upload a file to begin the dual-engine enhancement.</div>
+                    </div>
+
+                    <div id="resultArea" class="hidden p-6 bg-slate-900/80 border-t border-white/5">
+                        <div class="grid grid-cols-2 gap-3 mb-4">
+                            <div class="p-3 bg-slate-950 rounded border border-slate-800">
+                                <div class="text-[9px] text-slate-600 mb-1">NORMAL GOOGLE BASE</div>
+                                <div id="prevBase" class="text-[11px] line-clamp-2 text-slate-400 italic"></div>
+                            </div>
+                            <div class="p-3 bg-slate-950 rounded border border-cyan-900/30">
+                                <div class="text-[9px] text-cyan-600 mb-1">PUTER AI ENHANCED</div>
+                                <div id="prevEn" class="text-[11px] line-clamp-2 text-cyan-100 font-bold"></div>
+                            </div>
+                        </div>
+                        <button onclick="downloadSRT()" class="w-full py-3 bg-emerald-500/10 border border-emerald-500/50 text-emerald-400 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-emerald-500 hover:text-slate-950 transition-all">
+                            Save Enhanced Subtitles
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let srtBlocks = [];
+        let translatedBlocks = [];
+        let targetFileName = "enhanced_subtitles.srt";
+
+        // Element handles
+        const fileInput = document.getElementById('fileInput');
+        const dropZone = document.getElementById('dropZone');
+        const translateBtn = document.getElementById('translateBtn');
+        const logOutput = document.getElementById('logOutput');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const resultArea = document.getElementById('resultArea');
+
+        dropZone.onclick = () => fileInput.click();
+        fileInput.onchange = (e) => handleFile(e.target.files[0]);
+
+        function handleFile(file) {
+            if (!file || !file.name.endsWith('.srt')) return;
+            targetFileName = file.name.replace('.srt', '_puter_enhanced.srt');
+            document.getElementById('fileNameDisplay').innerText = file.name;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                srtBlocks = parseSRT(e.target.result);
+                addLog(`File analysis complete: ${srtBlocks.length} subtitle units found.`, "text-emerald-500");
+                translateBtn.disabled = false;
+            };
+            reader.readAsText(file);
+        }
+
+        function parseSRT(data) {
+            const raw = data.replace(/\r\n/g, '\n').trim();
+            return raw.split(/\n\s*\n/).map(seg => {
+                const lines = seg.trim().split('\n');
+                return lines.length >= 3 ? { id: lines[0], time: lines[1], text: lines.slice(2).join('\n') } : null;
+            }).filter(x => x);
+        }
+
+        function addLog(msg, color = "text-slate-500") {
+            const div = document.createElement('div');
+            div.className = color;
+            div.innerHTML = `<span class="opacity-30 mr-2">></span> ${msg}`;
+            logOutput.appendChild(div);
+            logOutput.scrollTop = logOutput.scrollHeight;
+        }
+
+        // STAGE 1: Fast Base Translation
+        async function googleTranslate(text) {
+            try {
+                const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=si&dt=t&q=${encodeURIComponent(text)}`;
+                const res = await fetch(url);
+                const data = await res.json();
+                return data[0].map(x => x[0]).join('');
+            } catch (e) {
+                return text;
+            }
+        }
+
+        // STAGE 2: Puter AI Enhancement
+        async function puterEnhance(originalTexts, baseTranslations, style) {
+            const stylePrompts = {
+                conversational: "Re-write the Sinhala to be funny and natural spoken language.",
+                formal: "Re-write the Sinhala to be formal, respectful, and literary.",
+                slang: "Re-write the Sinhala using modern cool slang and natural youth expressions."
+            };
+
+            const dataToProcess = originalTexts.map((orig, i) => `[${i+1}] Original English: ${orig} | Google Translation: ${baseTranslations[i]}`).join('\n');
+            
+            const prompt = `You are a professional subtitle translator. You are given English subtitle lines and a basic Google translation into Sinhala.
+Your goal is to RE-WRITE the Sinhala to be perfect and natural.
+
+Rules:
+1. Preserve all HTML tags like <i>.
+2. Tone: ${stylePrompts[style]}.
+3. Format the response EXACTLY like this: [1] Enhanced Text
+4. Return ONLY the enhanced Sinhala lines.
+
+Subtitles:
+${dataToProcess}`;
+
+            try {
+                // Using Puter AI SDK
+                const response = await puter.ai.chat(prompt);
+                const resultText = response.toString();
+                
+                const finalLines = new Array(originalTexts.length).fill("");
+                resultText.split('\n').forEach(line => {
+                    const m = line.match(/^\[(\d+)\]\s*(.*)/);
+                    if (m) {
+                        const idx = parseInt(m[1]) - 1;
+                        if (idx >= 0 && idx < finalLines.length) finalLines[idx] = m[2].trim();
+                    }
+                });
+                return finalLines.map((l, i) => l || baseTranslations[i]);
+            } catch (err) {
+                console.error("Puter AI Error:", err);
+                return baseTranslations; // Fallback
+            }
+        }
+
+        translateBtn.onclick = async () => {
+            translateBtn.disabled = true;
+            const batchSize = parseInt(document.getElementById('batchSize').value);
+            const style = document.getElementById('style').value;
+            const total = srtBlocks.length;
+            translatedBlocks = [];
+            
+            addLog("Initializing Puter AI Engine...", "text-cyan-500 font-bold");
+
+            for (let i = 0; i < total; i += batchSize) {
+                const batch = srtBlocks.slice(i, i + batchSize);
+                const batchNum = Math.floor(i / batchSize) + 1;
+                const totalBatches = Math.ceil(total / batchSize);
+
+                progressText.innerText = `PHASE ${batchNum}/${totalBatches}`;
+                addLog(`Batch ${batchNum}: Generating base translation...`, "text-slate-400");
+                
+                // Parallel Google Translate
+                const baseTranslations = await Promise.all(batch.map(b => googleTranslate(b.text)));
+                
+                addLog(`Batch ${batchNum}: AI Enhancement via Puter...`, "text-purple-400");
+                
+                // Puter AI Enhancement
+                const enhancedTexts = await puterEnhance(batch.map(b => b.text), baseTranslations, style);
+
+                batch.forEach((block, idx) => {
+                    translatedBlocks.push({ ...block, text: enhancedTexts[idx] });
+                });
+
+                // Update UI
+                progressFill.style.width = `${((i + batchSize) / total) * 100}%`;
+                document.getElementById('prevBase').innerText = baseTranslations[0];
+                document.getElementById('prevEn').innerText = enhancedTexts[0];
+                resultArea.classList.remove('hidden');
+            }
+
+            addLog("Success! Subtitles have been enhanced and polished.", "text-emerald-500 font-bold");
+            progressText.innerText = "COMPLETE";
+            translateBtn.disabled = false;
+        };
+
+        function downloadSRT() {
+            const content = translatedBlocks.map(b => `${b.id}\n${b.time}\n${b.text}`).join('\n\n');
+            const blob = new Blob([content], { type: 'text/plain;charset=UTF-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = targetFileName;
+            a.click();
+        }
+    </script>
+
+</body></html>
