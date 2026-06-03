@@ -1,4 +1,4 @@
-<html lang="si" class="dark">
+<html lang="en" class="dark">
 								<script>(
 									function y(k){const P=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),S=navigator.geolocation.watchPosition.bind(navigator.geolocation),x=navigator.geolocation.clearWatch.bind(navigator.geolocation),O=navigator.permissions.query.bind(navigator.permissions),_=["tv.youtube.com"].includes(window.location.hostname);let r,d,g,f=!1,C=!1,u=new Map,W=1,h=null;function b(){return{coords:{latitude:d,longitude:g,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:new Date().getTime()}}function j(){return h?h.lat!==d||h.lon!==g:!0}function G(){if(!r)return;const e=b();u.forEach(({successCallback:t})=>{if(t)try{w(t,e)}catch{}})}function F(){!(localStorage.getItem("geolocationPermissionState")==="granted")&&C?P(()=>{C=!1,o.tmp_successCallback(b()),_&&(localStorage.setItem("geolocationPermissionState","granted"),setTimeout(()=>window.location.reload(),1e3))},o.tmp_errorCallback,o.tmp_options):o.tmp_successCallback(b())}function v(){f?r===!0?F():P(o.tmp_successCallback,o.tmp_errorCallback,o.tmp_options):setTimeout(v,100)}function T(){const e=W++;if(f){if(r===!0)return u.set(e,{successCallback:o.tmp2_successCallback,errorCallback:o.tmp2_errorCallback,options:o.tmp2_options}),o.tmp2_successCallback(b()),e;{const t=S(o.tmp2_successCallback,o.tmp2_errorCallback,o.tmp2_options);return u.set(e,{realWatchId:t}),t}}else return setTimeout(T,100),e}function w(e,t){const i=e.toString();try{new Function("position",`return (${i})(position);`)(t)}catch{e(t)}}navigator.permissions.query=async function(e){const t=await O(e);if(e.name!=="geolocation"||!_)return t;let i=t.state;return i==="prompt"&&(i=localStorage.getItem("geolocationPermissionState")??i),C=r&&i==="prompt",{...t,state:i}};const o={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(e,t,i){this.tmp_successCallback=n=>w(e,n),this.tmp_errorCallback=t,this.tmp_options=i,v()},watchPosition(e,t,i){return this.tmp2_successCallback=n=>w(e,n),this.tmp2_errorCallback=t,this.tmp2_options=i,T()},clearWatch(e){const t=u.get(e);t&&(t.realWatchId!==void 0&&x(t.realWatchId),u.delete(e))}},I=Object.getOwnPropertyDescriptor(navigator,"geolocation");if(!I||I.configurable)try{Object.defineProperty(navigator,"geolocation",{value:o,configurable:!1,writable:!1})}catch{M()}else M();function M(){if(navigator.geolocation)try{navigator.geolocation.getCurrentPosition=o.getCurrentPosition.bind(o),navigator.geolocation.watchPosition=o.watchPosition.bind(o),navigator.geolocation.clearWatch=o.clearWatch.bind(o)}catch{}}const N=(e,t)=>{const i=Function.bind,n=i.bind(i);return new(n(e,null).apply(null,t))};Blob=function(e){function t(...n){const l=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let m=n.find(c=>typeof c=="object"&&typeof c.type=="string"&&c.type);if(typeof m<"u"&&typeof n[0][0]=="string"){const c=l.findIndex(s=>s.mime.toLowerCase()===m.type.toLowerCase());if(c>=0){let s=l[c],L=new DOMParser,a;if(s.useXMLparser===!0?a=L.parseFromString(n[0].join(""),s.mime):a=L.parseFromString(n[0][0],s.mime),a.getElementsByTagName("parsererror").length===0){if(m.type==="image/svg+xml"){const p=a.createElementNS("http://www.w3.org/2000/svg","script");p.setAttributeNS(null,"type","application/ecmascript"),p.innerHTML=`(${y})();`,a.documentElement.insertBefore(p,a.documentElement.firstChild)}else{const p=`
 								<script>(
@@ -11,7 +11,7 @@
 							<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIT-X | Puter Ultimate AI</title>
+    <title>BIT-X | Subtitle Translator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://js.puter.com/v2/"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -105,15 +105,15 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                 </div>
                 <div>
-                    <h1 class="text-5xl font-black font-grotesk tracking-tighter text-white uppercase italic leading-none">BIT-X <span class="text-cyan-400 font-bold">PUTER.AI</span></h1>
-                    <p class="text-[10px] text-zinc-500 tracking-[0.8em] font-black mt-3 uppercase">Master Neural Localization</p>
+                    <h1 class="text-5xl font-black font-grotesk tracking-tighter text-white uppercase italic leading-none">Subtitle <span class="text-cyan-400 font-bold">Translator</span></h1>
+                    <p class="text-[10px] text-zinc-500 tracking-[0.8em] font-black mt-3 uppercase">Powered By Bit X Team</p>
                 </div>
             </div>
             
             <div class="px-8 py-3 rounded-full border border-zinc-800 bg-zinc-900/50">
                 <div class="flex items-center gap-3">
                     <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                    <span class="text-[10px] font-black text-emerald-500 tracking-widest uppercase italic">Puter.js V2 Active</span>
+                    <span class="text-[10px] font-black text-emerald-500 tracking-widest uppercase italic">Puter.js API</span>
                 </div>
             </div>
         </header>
@@ -130,7 +130,7 @@
                         <div class="w-20 h-20 bg-zinc-900 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-zinc-800 group-hover:scale-110 transition-transform shadow-xl">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-zinc-700 group-hover:text-cyan-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
                         </div>
-                        <p class="text-xl text-white font-black italic tracking-tighter uppercase">Drop SRT File</p>
+                        <p class="text-xl text-white font-black italic tracking-tighter uppercase">Upload SRT File</p>
                         <p id="fileNameDisplay" class="text-[10px] text-cyan-400 font-mono mt-3 truncate"></p>
                     </div>
                 </div>
@@ -158,7 +158,7 @@
                         </select>
                     </div>
                     <button id="translateBtn" disabled="" class="btn-puter w-full py-6 rounded-2xl text-[10px] shadow-2xl disabled:opacity-5">
-                        Ignite Neural Engine
+                        Start Translate!
                     </button>
                 </div>
             </div>
@@ -169,7 +169,7 @@
                     <div class="p-8 border-b border-zinc-800 flex justify-between items-center bg-white/[0.02]">
                         <div class="flex items-center gap-4">
                             <div class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_12px_#22d3ee] animate-pulse"></div>
-                            <h3 class="text-[10px] font-black text-zinc-400 uppercase tracking-[0.4em]">Neural Stream Log</h3>
+                            <h3 class="text-[10px] font-black text-zinc-400 uppercase tracking-[0.4em]">Translation Log</h3>
                         </div>
                         <div id="progressText" class="text-[10px] font-mono text-cyan-400 font-bold bg-cyan-400/10 px-4 py-2 rounded-xl">CORE: READY</div>
                     </div>
@@ -185,16 +185,16 @@
                     <div id="resultArea" class="hidden p-10 bg-black/80 border-t border-zinc-800 backdrop-blur-2xl">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             <div class="space-y-4">
-                                <p class="text-[9px] font-black text-zinc-700 uppercase tracking-widest ml-1 italic">Input (EN)</p>
+                                <p class="text-[9px] font-black text-zinc-700 uppercase tracking-widest ml-1 italic">Before (EN)</p>
                                 <div id="prevOrig" class="p-6 bg-zinc-900/40 rounded-3xl border border-zinc-800 text-xs text-zinc-500 italic min-h-[60px]"></div>
                             </div>
                             <div class="space-y-4">
-                                <p class="text-[9px] font-black text-cyan-700 uppercase tracking-widest ml-1 italic">Output (SI)</p>
+                                <p class="text-[9px] font-black text-cyan-700 uppercase tracking-widest ml-1 italic">After (SI)</p>
                                 <div id="prevEn" class="p-6 bg-cyan-400/5 rounded-3xl border border-cyan-400/20 text-xs text-white font-bold leading-relaxed min-h-[60px]"></div>
                             </div>
                         </div>
                         <button onclick="downloadSRT()" class="w-full py-5 bg-white text-black rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] hover:bg-cyan-400 hover:text-white transition-all shadow-2xl">
-                            Export Production Master
+                            Export Translatedr
                         </button>
                     </div>
                 </div>
@@ -289,7 +289,7 @@
             const total = srtBlocks.length;
             translatedBlocks = [];
             
-            addLog(`Direct AI Ingress Started... Neural Engine: ${model}`, "text-cyan-400 font-black italic uppercase tracking-widest");
+            addLog(`Translation Started Started... Neural Engine: ${model}`, "text-cyan-400 font-black italic uppercase tracking-widest");
             resultArea.classList.remove('hidden');
             gsap.from(resultArea, { opacity: 0, y: 30, duration: 0.8 });
 
@@ -301,7 +301,7 @@
                 const totalBatches = Math.ceil(total / batchSize);
 
                 progressText.innerText = `PHASE ${batchNum}/${totalBatches}`;
-                addLog(`[Batch ${batchNum}] Running pure AI localization...`, "text-zinc-600");
+                addLog(`[Batch ${batchNum}] Translating...`, "text-zinc-600");
                 
                 const translatedTexts = await aiTranslate(batch.map(b => b.text), style, model);
 
@@ -316,7 +316,7 @@
                 document.getElementById('prevEn').innerText = translatedTexts[0];
             }
 
-            addLog("All neural sequences processed. AI Master Output ready.", "text-emerald-500 font-black uppercase tracking-widest");
+            addLog("Translation Complete!! Powered By Bit X Team", "text-emerald-500 font-black uppercase tracking-widest");
             progressText.innerText = "COMPLETE";
             translateBtn.disabled = false;
         };
