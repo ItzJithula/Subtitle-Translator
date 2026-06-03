@@ -11,15 +11,14 @@
 							<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIT-X | Neural Master</title>
+    <title>BIT-X | Subtitle Translator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://js.puter.com/v2/"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=Noto+Sans+Sinhala:wght@400;700&amp;family=Space+Grotesk:wght@300;700&amp;display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #6366f1; /* Indigo 500 */
-            --accent-glow: rgba(99, 102, 241, 0.3);
+            --accent: #6366f1; /* Indigo */
             --bg: #020617; /* Slate 950 */
         }
         body {
@@ -28,6 +27,7 @@
             color: #f8fafc;
             overflow-x: hidden;
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
         .font-grotesk { font-family: 'Space Grotesk', sans-serif; }
         
@@ -35,91 +35,82 @@
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: 
-                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.05) 0%, transparent 40%);
+                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.07) 0%, transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.04) 0%, transparent 40%);
             z-index: -1;
+            will-change: transform;
         }
 
         .glass {
             background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
         .upload-card {
             border: 1px solid #1e293b;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            will-change: transform;
         }
         .upload-card:hover {
             border-color: var(--accent);
-            background: rgba(99, 102, 241, 0.02);
-            transform: translateY(-5px);
+            transform: translateY(-4px);
         }
 
-        .btn-action {
+        .btn-puter {
             background: linear-gradient(135deg, #6366f1, #8b5cf6);
             color: #fff;
             font-weight: 800;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, filter 0.2s ease;
             text-transform: uppercase;
-            letter-spacing: 0.15em;
+            letter-spacing: 0.1em;
+            will-change: transform;
         }
-        .btn-action:hover:not(:disabled) {
+        .btn-puter:hover:not(:disabled) {
             filter: brightness(1.2);
-            box-shadow: 0 0 30px var(--accent-glow);
             transform: scale(1.02);
         }
 
-        .progress-bar-inner {
+        .progress-fill {
             background: linear-gradient(90deg, #6366f1, #8b5cf6);
-            box-shadow: 0 0 15px var(--accent-glow);
             transition: width 0.4s ease;
         }
 
         .log-entry { 
-            animation: slideIn 0.3s ease-out forwards;
-            border-left: 2px solid rgba(99, 102, 241, 0.1);
-            padding-left: 12px;
-            margin-bottom: 8px;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-10px); }
-            to { opacity: 1; transform: translateX(0); }
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
+            will-change: opacity, transform;
         }
 
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
-
-        optgroup { background: #0f172a; color: #94a3b8; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
-        option { background: #020617; color: #f8fafc; font-weight: normal; }
     </style>
 </head>
-<body class="p-6 lg:p-12">
+<body class="p-6 md:p-12">
 
     <div class="bg-gradient"></div>
 
     <div class="max-w-6xl mx-auto relative z-10">
         <!-- Header -->
-        <header id="mainHeader" class="flex flex-col md:flex-row justify-between items-center mb-20 gap-8 opacity-0">
+        <header id="mainHeader" class="flex flex-col md:flex-row justify-between items-center mb-16 gap-8 opacity-0">
             <div class="flex items-center gap-6">
-                <!-- X Logo Icon -->
-                <div class="w-20 h-20 bg-indigo-600 rounded-3xl flex items-center justify-center rotate-3 shadow-2xl shadow-indigo-500/20 border border-white/10" id="logoIcon">
+                <!-- Updated X Icon -->
+                <div class="w-20 h-20 bg-indigo-600 rounded-3xl flex items-center justify-center rotate-3 shadow-2xl border border-white/10" id="logoIcon">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18 6L6 18M6 6L18 18" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-5xl font-black font-grotesk tracking-tighter text-white uppercase italic leading-none">BIT-X <span class="text-indigo-400 font-bold">TRANSLATOR</span></h1>
-                    <p class="text-[10px] text-slate-500 tracking-[0.8em] font-black mt-4 uppercase">Powered by Bit X Team</p>
+                    <h1 class="text-5xl font-black font-grotesk tracking-tighter text-white uppercase italic leading-none">Subtitle <span class="text-indigo-400 font-bold">Translator</span></h1>
+                    <p class="text-[10px] text-slate-500 tracking-[0.8em] font-black mt-3 uppercase">Powered By Bit X Team</p>
                 </div>
             </div>
             
-            <div class="flex items-center gap-4 glass p-4 rounded-3xl border border-white/5">
+            <div class="px-8 py-3 rounded-full border border-slate-800 bg-slate-900/50">
                 <div class="flex items-center gap-3">
                     <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                    <span class="text-[10px] font-black text-indigo-300 tracking-widest uppercase italic">Neural Sync Active</span>
+                    <span class="text-[10px] font-black text-emerald-500 tracking-widest uppercase italic">Puter.js API</span>
                 </div>
             </div>
         </header>
@@ -129,90 +120,75 @@
             <div class="lg:col-span-4 space-y-8" id="leftPanel">
                 <div class="glass upload-card rounded-[32px] p-8 transition-all cursor-pointer" id="dropZone">
                     <h3 class="text-[10px] font-black text-slate-500 mb-8 uppercase tracking-widest flex items-center gap-3">
-                        <span class="w-1.5 h-4 bg-indigo-500 rounded-full"></span> Source Loader
+                        <span class="w-1.5 h-4 bg-indigo-500 rounded-full"></span> Subtitle Module
                     </h3>
                     <div class="text-center group">
                         <input type="file" id="fileInput" class="hidden" accept=".srt">
-                        <div class="w-20 h-20 bg-slate-900 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-slate-800 group-hover:scale-110 transition-transform">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-slate-600 group-hover:text-indigo-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        <div class="w-20 h-20 bg-slate-900 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-slate-800 transition-transform duration-300 group-hover:scale-110 shadow-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-slate-700 group-hover:text-indigo-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
                         </div>
-                        <p class="text-lg text-white font-black italic tracking-tighter uppercase italic">Upload Subtitles</p>
+                        <p class="text-xl text-white font-black italic tracking-tighter uppercase">Upload SRT File</p>
                         <p id="fileNameDisplay" class="text-[10px] text-indigo-400 font-mono mt-3 truncate font-bold"></p>
                     </div>
                 </div>
 
                 <div class="glass rounded-[32px] p-8 space-y-6" id="settingsCard">
                     <div class="space-y-3">
-                        <label class="text-[10px] text-slate-500 uppercase font-black tracking-widest ml-1 italic">Neural Brain</label>
-                        <select id="modelSelect" class="w-full bg-black/60 border border-slate-800 rounded-xl px-6 py-4 text-xs text-slate-300 outline-none focus:border-indigo-400 transition-all font-bold cursor-pointer appearance-none">
-                            <optgroup label="Google Gemini">
-                                <option value="gemini-3.5-flash" selected="">Gemini 3.5 Flash (Latest)</option>
-                                <option value="gemini-3.1-flash-lite">Gemini 3.1 Flash Lite</option>
-                                <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview</option>
-                                <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
-                                <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
-                                <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
-                            </optgroup>
-                            <optgroup label="OpenAI GPT">
-                                <option value="gpt-5.5-pro">GPT-5.5 Pro</option>
-                                <option value="gpt-5.5">GPT-5.5</option>
-                                <option value="gpt-5.4-mini">GPT-5.4 Mini</option>
-                                <option value="gpt-5.4">GPT-5.4</option>
-                                <option value="gpt-4o">GPT-4o (Omni)</option>
-                                <option value="o3">o3 (Reasoning)</option>
-                                <option value="o1-mini">o1 Mini</option>
-                            </optgroup>
-                            <optgroup label="Anthropic / Other">
-                                <option value="claude-3-5-sonnet-latest">Claude 3.5 Sonnet</option>
-                                <option value="llama-3.1-70b">Llama 3.1 70B</option>
-                            </optgroup>
+                        <label class="text-[10px] text-slate-600 uppercase font-black tracking-widest ml-1 italic">Neural Architecture</label>
+                        <select id="modelSelect" class="w-full bg-black border border-slate-800 rounded-xl px-5 py-4 text-xs text-slate-300 outline-none focus:border-indigo-400 transition-all font-bold cursor-pointer">
+                            <option value="gemini-3.5-flash" selected="">Gemini 3.5 Flash (Latest)</option>
+                            <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+                            <option value="gpt-4o">GPT-4o (Omni)</option>
+                            <option value="gpt-5.5">GPT-5.5 (Future)</option>
+                            <option value="claude-3-5-sonnet-latest">Claude 3.5 Sonnet</option>
+                            <option value="llama-3.1-70b">Llama 3.1 70B</option>
                         </select>
                     </div>
                     <div class="space-y-3">
-                        <label class="text-[10px] text-slate-500 uppercase font-black tracking-widest ml-1 italic">Linguistic Persona</label>
-                        <select id="style" class="w-full bg-black/60 border border-slate-800 rounded-xl px-6 py-4 text-xs text-slate-300 outline-none focus:border-indigo-400 transition-all font-bold cursor-pointer appearance-none">
-                            <option value="funny">Funny &amp; Native Editor</option>
-                            <option value="dramatic">Serious Cinematic Poet</option>
+                        <label class="text-[10px] text-slate-600 uppercase font-black tracking-widest ml-1 italic">Artistic Persona</label>
+                        <select id="style" class="w-full bg-black border border-slate-800 rounded-xl px-5 py-4 text-xs text-slate-300 outline-none focus:border-indigo-400 transition-all font-bold cursor-pointer">
+                            <option value="funny">Funny &amp; Witty Editor (Natural)</option>
+                            <option value="dramatic">Serious Cinematic Poet (Formal)</option>
                         </select>
                     </div>
-                    <button id="translateBtn" disabled="" class="btn-action w-full py-6 rounded-2xl text-[11px] shadow-2xl disabled:opacity-10">
-                        Launch Neural Flow
+                    <button id="translateBtn" disabled="" class="btn-puter w-full py-6 rounded-2xl text-[10px] shadow-2xl disabled:opacity-5">
+                        Start Translate!
                     </button>
                 </div>
             </div>
 
             <!-- Dashboard -->
             <div class="lg:col-span-8 space-y-8" id="rightPanel">
-                <div class="glass rounded-[40px] overflow-hidden flex flex-col h-full min-h-[600px] border border-white/5 relative shadow-2xl">
-                    <div class="p-8 border-b border-slate-800 flex justify-between items-center bg-slate-900/20">
+                <div class="glass rounded-[40px] overflow-hidden flex flex-col h-full min-h-[600px] border border-white/5 relative">
+                    <div class="p-8 border-b border-slate-800 flex justify-between items-center bg-white/[0.02]">
                         <div class="flex items-center gap-4">
-                            <div class="w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-[0_0_15px_#6366f1] animate-pulse"></div>
-                            <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em]">Neural Stream Log</h3>
+                            <div class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_10px_#6366f1]"></div>
+                            <h3 class="text-[10px] font-black text-zinc-400 uppercase tracking-[0.4em]">Translation Log</h3>
                         </div>
-                        <div id="progressText" class="text-[10px] font-mono text-indigo-400 font-bold bg-indigo-400/10 px-4 py-2 rounded-xl">CORE READY</div>
+                        <div id="progressText" class="text-[10px] font-mono text-indigo-400 font-bold bg-indigo-400/10 px-4 py-2 rounded-xl uppercase tracking-tighter">CORE: READY</div>
                     </div>
                     
-                    <div class="h-1 bg-slate-950 w-full relative">
-                        <div id="progressFill" class="h-full progress-bar-inner w-0"></div>
+                    <div class="h-1 bg-zinc-950 w-full relative">
+                        <div id="progressFill" class="h-full progress-fill w-0"></div>
                     </div>
 
-                    <div id="logOutput" class="flex-1 p-10 font-mono text-[12px] overflow-y-auto space-y-1 text-slate-500 leading-relaxed scrollbar-hide">
+                    <div id="logOutput" class="flex-1 p-10 font-mono text-[12px] overflow-y-auto space-y-1 text-zinc-600 leading-relaxed scrollbar-hide">
                         <div class="text-indigo-800 italic">&gt; BIT-X Master engine initialized. Awaiting data stream...</div>
                     </div>
 
-                    <div id="resultArea" class="hidden p-10 bg-black/80 border-t border-slate-800 backdrop-blur-3xl">
+                    <div id="resultArea" class="hidden p-10 bg-black/80 border-t border-slate-800 backdrop-blur-2xl">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             <div class="space-y-4">
-                                <p class="text-[9px] font-black text-slate-600 uppercase tracking-widest italic">Input Stream (EN)</p>
-                                <div id="prevOrig" class="p-6 bg-slate-900/40 rounded-3xl border border-slate-800 text-[13px] text-slate-500 italic min-h-[60px]"></div>
+                                <p class="text-[9px] font-black text-zinc-700 uppercase tracking-widest ml-1 italic">Before (EN)</p>
+                                <div id="prevOrig" class="p-6 bg-zinc-900/40 rounded-3xl border border-zinc-800 text-xs text-zinc-500 italic min-h-[60px]"></div>
                             </div>
                             <div class="space-y-4">
-                                <p class="text-[9px] font-black text-indigo-600 uppercase tracking-widest italic">AI Localized (SI)</p>
-                                <div id="prevEn" class="p-6 bg-indigo-500/5 rounded-3xl border border-indigo-400/20 text-[13px] text-white font-bold leading-relaxed min-h-[60px]"></div>
+                                <p class="text-[9px] font-black text-indigo-700 uppercase tracking-widest ml-1 italic">After (SI)</p>
+                                <div id="prevEn" class="p-6 bg-indigo-500/5 rounded-3xl border border-indigo-400/20 text-xs text-white font-bold leading-relaxed min-h-[60px]"></div>
                             </div>
                         </div>
                         <button onclick="downloadSRT()" class="w-full py-5 bg-white text-black rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] hover:bg-indigo-500 hover:text-white transition-all shadow-2xl">
-                            Save Final Master
+                            Export Translatedr
                         </button>
                     </div>
                 </div>
@@ -223,7 +199,7 @@
     <script>
         let srtBlocks = [];
         let translatedBlocks = [];
-        let targetFileName = "bitx_localized.srt";
+        let targetFileName = "bitx_master.srt";
 
         const fileInput = document.getElementById('fileInput');
         const dropZone = document.getElementById('dropZone');
@@ -233,11 +209,11 @@
         const progressText = document.getElementById('progressText');
         const resultArea = document.getElementById('resultArea');
 
-        // Intro
+        // Optimized Intro Animation
         window.addEventListener('DOMContentLoaded', () => {
-            gsap.to("#mainHeader", { opacity: 1, y: 0, duration: 1.2, ease: "expo.out" });
-            gsap.from("#leftPanel", { x: -30, opacity: 0, duration: 1, delay: 0.2 });
-            gsap.from("#rightPanel", { x: 30, opacity: 0, duration: 1, delay: 0.2 });
+            gsap.to("#mainHeader", { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
+            gsap.from("#leftPanel", { x: -20, opacity: 0, duration: 0.8, delay: 0.2, ease: "power2.out" });
+            gsap.from("#rightPanel", { x: 20, opacity: 0, duration: 0.8, delay: 0.2, ease: "power2.out" });
         });
 
         dropZone.onclick = () => fileInput.click();
@@ -250,7 +226,7 @@
             const reader = new FileReader();
             reader.onload = (e) => {
                 srtBlocks = parseSRT(e.target.result);
-                addLog(`Inbound data parsed: ${srtBlocks.length} sequences.`, "text-indigo-400 font-bold");
+                addLog(`Inbound data parsed. Found ${srtBlocks.length} subtitle units.`, "text-indigo-400 font-bold");
                 translateBtn.disabled = false;
             };
             reader.readAsText(file);
@@ -264,7 +240,7 @@
             }).filter(x => x);
         }
 
-        function addLog(msg, color = "text-slate-700") {
+        function addLog(msg, color = "text-zinc-700") {
             const div = document.createElement('div');
             div.className = `log-entry ${color}`;
             div.innerHTML = `<span class="opacity-10 mr-3">></span> ${msg}`;
@@ -274,16 +250,15 @@
 
         async function aiTranslate(originalTexts, style, model) {
             const persona = style === 'funny' 
-                ? "You are a 'Witty Sinhala Movie Translator'. Translate English subtitles into natural, funny, and native spoken Sinhala. Use colloquialisms and character."
-                : "You are a 'Dramatic Cinematic Poet'. Translate English subtitles into formal, beautiful, and dramatic cinematic Sinhala.";
+                ? "You are a 'Witty Sinhala Cinematic Editor'. Translate English subtitles into natural, funny, and native spoken Sinhala dialogue."
+                : "You are a 'Serious Cinematic Poet'. Translate English subtitles into formal, beautiful, and dramatic cinematic Sinhala.";
 
             const content = originalTexts.map((orig, i) => `[${i+1}] EN: ${orig}`).join('\n');
-            const systemPrompt = `PERSONA: ${persona}\nTASK: Translate English to Sinhala.\nRULES:\n1. Maintain HTML tags.\n2. Output format: [number] Translated Text.\n3. NO English, NO notes.`;
+            const systemPrompt = `PERSONA: ${persona}\nTASK: Translate English subtitles into perfect Sinhala.\nRULES:\n1. Maintain HTML tags.\n2. Output format: [number] Translated Text.\n3. NO English, NO notes, NO small talk.`;
 
             try {
                 const response = await puter.ai.chat(systemPrompt + "\n\nSUBTITLES:\n" + content, { model: model });
                 const resultText = response.toString();
-                
                 const finalLines = new Array(originalTexts.length).fill("");
                 resultText.split('\n').forEach(line => {
                     const m = line.match(/^\[(\d+)\]\s*(.*)/);
@@ -294,7 +269,6 @@
                 });
                 return finalLines.map((l, i) => l || originalTexts[i]);
             } catch (err) {
-                console.error(err);
                 return originalTexts;
             }
         }
@@ -306,19 +280,17 @@
             const total = srtBlocks.length;
             translatedBlocks = [];
             
-            addLog(`Translation Sequence Started... Brain: ${model}`, "text-indigo-400 font-black italic uppercase tracking-widest");
+            addLog(`Translation Started Started... Neural Engine: ${model}`, "text-indigo-400 font-black italic uppercase tracking-widest");
             resultArea.classList.remove('hidden');
-            gsap.from(resultArea, { opacity: 0, y: 30, duration: 0.8 });
 
             const batchSize = 30; 
-
             for (let i = 0; i < total; i += batchSize) {
                 const batch = srtBlocks.slice(i, i + batchSize);
                 const batchNum = Math.floor(i / batchSize) + 1;
                 const totalBatches = Math.ceil(total / batchSize);
 
                 progressText.innerText = `PHASE ${batchNum}/${totalBatches}`;
-                addLog(`[Batch ${batchNum}] Mapping neural patterns...`, "text-slate-600");
+                addLog(`[Batch ${batchNum}] Translating...`, "text-zinc-600");
                 
                 const translatedTexts = await aiTranslate(batch.map(b => b.text), style, model);
 
@@ -327,13 +299,13 @@
                 });
 
                 const progress = ((i + batchSize) / total) * 100;
-                gsap.to(progressFill, { width: `${progress}%`, duration: 0.5 });
+                gsap.to(progressFill, { width: `${progress}%`, duration: 0.3 });
                 
                 document.getElementById('prevOrig').innerText = batch[0].text;
                 document.getElementById('prevEn').innerText = translatedTexts[0];
             }
 
-            addLog("Processing sequence complete. Production master exported.", "text-emerald-500 font-black uppercase");
+            addLog("Translation Complete!! Powered By Bit X Team", "text-emerald-500 font-black uppercase tracking-widest");
             progressText.innerText = "COMPLETE";
             translateBtn.disabled = false;
         };
@@ -347,5 +319,5 @@
             a.click();
         }
     </script>
-
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a05f927bdc1045c8',t:'MTc4MDQ5ODg3Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body></html>
