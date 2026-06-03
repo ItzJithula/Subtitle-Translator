@@ -11,129 +11,190 @@
 							<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIT-X | Puter Powered Sub-Enhancer</title>
+    <title>BIT-X | Puter Ultimate AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Include Puter JS SDK -->
     <script src="https://js.puter.com/v2/"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Noto+Sans+Sinhala:wght@400;700&amp;display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=Noto+Sans+Sinhala:wght@400;700&amp;family=Space+Grotesk:wght@300;700&amp;display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #06b6d4;
-            --accent-glow: rgba(6, 182, 212, 0.3);
+            --accent: #22d3ee;
+            --bg: #010409;
         }
         body {
             font-family: 'Inter', 'Noto Sans Sinhala', sans-serif;
-            background-color: #020617;
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
-            color: #f8fafc;
+            background-color: var(--bg);
+            color: #f0f6fc;
+            overflow-x: hidden;
             min-height: 100vh;
         }
-        .glass {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .font-grotesk { font-family: 'Space Grotesk', sans-serif; }
+        
+        /* Animated Gradient Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(34, 211, 238, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(34, 211, 238, 0.03) 0%, transparent 40%);
+            z-index: -1;
         }
-        .btn-primary { background: var(--accent); transition: all 0.3s ease; }
-        .btn-primary:hover { box-shadow: 0 0 20px var(--accent); transform: translateY(-1px); }
-        .progress-fill { transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+
+        .glass {
+            background: rgba(13, 17, 23, 0.8);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .upload-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(34, 211, 238, 0.1);
+        }
+
+        .btn-puter {
+            background: var(--accent);
+            color: #010409;
+            font-weight: 800;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+        .btn-puter:hover:not(:disabled) {
+            filter: brightness(1.1);
+            transform: scale(1.02);
+            box-shadow: 0 0 20px var(--accent);
+        }
+
+        .progress-fill {
+            background: var(--accent);
+            box-shadow: 0 0 15px var(--accent);
+            transition: width 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+        }
+
+        .log-entry { 
+            animation: slideIn 0.3s ease-out forwards;
+            padding: 2px 0;
+            border-left: 1px solid transparent;
+        }
+        .log-entry:hover {
+            border-left-color: var(--accent);
+            background: rgba(255,255,255,0.02);
+            padding-left: 8px;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
     </style>
 </head>
-<body class="p-4 md:p-8">
+<body class="p-6 md:p-12">
 
-    <div class="max-w-5xl mx-auto">
+    <div class="bg-gradient"></div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
         <!-- Header -->
-        <header class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-            <div class="flex items-center gap-3">
-                <div class="w-12 h-12 bg-cyan-500 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-slate-950" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+        <header id="mainHeader" class="flex flex-col md:flex-row justify-between items-center mb-16 gap-8 opacity-0">
+            <div class="flex items-center gap-6">
+                <div class="w-20 h-20 bg-cyan-400 rounded-3xl flex items-center justify-center rotate-3 shadow-2xl shadow-cyan-400/20" id="logoIcon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                 </div>
                 <div>
-                    <h1 class="text-2xl font-bold tracking-tight text-white uppercase">BIT-X <span class="text-cyan-500">Sub-Enhancer</span></h1>
-                    <p class="text-xs text-slate-400 tracking-[0.2em] font-medium">UNLIMITED PUTER.AI ENGINE</p>
+                    <h1 class="text-5xl font-black font-grotesk tracking-tighter text-white uppercase italic leading-none">BIT-X <span class="text-cyan-400 font-bold">PUTER.AI</span></h1>
+                    <p class="text-[10px] text-zinc-500 tracking-[0.8em] font-black mt-3 uppercase">Master Neural Localization</p>
                 </div>
             </div>
-            <div class="flex items-center gap-2 px-4 py-2 rounded-full glass border border-cyan-500/30">
-                <div class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                <span class="text-[10px] font-mono text-purple-400 uppercase">Stage: Puter AI Enhancement</span>
+            
+            <div class="px-8 py-3 rounded-full border border-zinc-800 bg-zinc-900/50">
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                    <span class="text-[10px] font-black text-emerald-500 tracking-widest uppercase italic">Puter.js V2 Active</span>
+                </div>
             </div>
         </header>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-1 space-y-6">
-                <!-- Source Upload -->
-                <div class="glass rounded-2xl p-6">
-                    <h3 class="text-sm font-semibold text-slate-300 mb-4 flex items-center gap-2 uppercase tracking-tighter">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                        Upload SRT
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <!-- Sidebar -->
+            <div class="lg:col-span-4 space-y-8" id="leftPanel">
+                <div class="glass upload-card rounded-[32px] p-8 transition-all cursor-pointer" id="dropZone">
+                    <h3 class="text-[10px] font-black text-zinc-500 mb-8 uppercase tracking-widest flex items-center gap-3">
+                        <span class="w-1.5 h-4 bg-cyan-400 rounded-full"></span> Subtitle Module
                     </h3>
-                    <div id="dropZone" class="border-2 border-dashed border-slate-700 rounded-xl p-8 text-center hover:border-cyan-500/50 transition-colors cursor-pointer group">
+                    <div class="text-center group">
                         <input type="file" id="fileInput" class="hidden" accept=".srt">
-                        <p class="text-sm text-slate-400 font-medium">Drop your subtitle file or <span class="text-cyan-500 font-bold">browse</span></p>
-                        <p id="fileNameDisplay" class="text-[10px] text-cyan-400 mt-2 font-mono truncate"></p>
+                        <div class="w-20 h-20 bg-zinc-900 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-zinc-800 group-hover:scale-110 transition-transform shadow-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-zinc-700 group-hover:text-cyan-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                        </div>
+                        <p class="text-xl text-white font-black italic tracking-tighter uppercase">Drop SRT File</p>
+                        <p id="fileNameDisplay" class="text-[10px] text-cyan-400 font-mono mt-3 truncate"></p>
                     </div>
                 </div>
 
-                <!-- Settings -->
-                <div class="glass rounded-2xl p-6">
-                    <h3 class="text-sm font-semibold text-slate-300 mb-4 uppercase tracking-tighter">Optimization</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="text-[10px] text-slate-500 uppercase tracking-widest block mb-1">Batch Size</label>
-                            <select id="batchSize" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 outline-none">
-                                <option value="10">10 Lines (Highest Quality)</option>
-                                <option value="25" selected="">25 Lines (Standard)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="text-[10px] text-slate-500 uppercase tracking-widest block mb-1">AI Tone</label>
-                            <select id="style" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-300 outline-none">
-                                <option value="conversational">Natural &amp; Funny (කතාකරන විදියට)</option>
-                                <option value="formal">Literary &amp; Formal (පොතේ භාෂාවෙන්)</option>
-                                <option value="slang">Slang &amp; Cool (අළුත් විදියට)</option>
-                            </select>
-                        </div>
+                <div class="glass rounded-[32px] p-8 space-y-6" id="settingsCard">
+                    <div class="space-y-3">
+                        <label class="text-[10px] text-zinc-600 uppercase font-black tracking-widest ml-1 italic">Neural Architecture</label>
+                        <select id="modelSelect" class="w-full bg-black/60 border border-zinc-800 rounded-xl px-6 py-4 text-xs text-zinc-300 outline-none focus:border-cyan-400 transition-all font-bold appearance-none cursor-pointer">
+                            <option value="gemini-2.5-flash" selected="">Gemini 3.5 Flash (Latest)</option>
+                            <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+                            <option value="gpt-4o">GPT-4o (Omni)</option>
+                            <option value="gpt-4o-mini">GPT-4o Mini</option>
+                            <option value="claude-3-5-sonnet-latest">Claude 3.5 Sonnet</option>
+                            <option value="claude-3-opus-latest">Claude 3 Opus</option>
+                            <option value="llama-3.1-405b">Llama 3.1 405B</option>
+                            <option value="llama-3.1-70b">Llama 3.1 70B</option>
+                            <option value="mistral-large-latest">Mistral Large 2</option>
+                        </select>
                     </div>
+                    <div class="space-y-3">
+                        <label class="text-[10px] text-zinc-600 uppercase font-black tracking-widest ml-1 italic">Artistic Persona</label>
+                        <select id="style" class="w-full bg-black/60 border border-zinc-800 rounded-xl px-6 py-4 text-xs text-zinc-300 outline-none focus:border-cyan-400 transition-all font-bold appearance-none cursor-pointer">
+                            <option value="funny">Funny &amp; Witty Editor (Natural)</option>
+                            <option value="dramatic">Serious Cinematic Poet (Formal)</option>
+                        </select>
+                    </div>
+                    <button id="translateBtn" disabled="" class="btn-puter w-full py-6 rounded-2xl text-[10px] shadow-2xl disabled:opacity-5">
+                        Ignite Neural Engine
+                    </button>
                 </div>
-
-                <button id="translateBtn" disabled="" class="btn-primary w-full py-4 rounded-xl text-slate-950 font-bold uppercase tracking-widest text-sm disabled:opacity-30">
-                    Enhance With Puter.ai
-                </button>
             </div>
 
-            <div class="lg:col-span-2 space-y-6">
-                <!-- Live Dashboard -->
-                <div class="glass rounded-2xl overflow-hidden flex flex-col h-full min-h-[500px]">
-                    <div class="p-4 border-b border-white/5 flex justify-between items-center bg-white/5">
-                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Puter Processing Engine</h3>
-                        <div id="progressText" class="text-[10px] font-mono text-cyan-500">STANDBY</div>
+            <!-- Dashboard -->
+            <div class="lg:col-span-8 space-y-8" id="rightPanel">
+                <div class="glass rounded-[40px] overflow-hidden flex flex-col h-full min-h-[600px] border border-white/5 relative">
+                    <div class="p-8 border-b border-zinc-800 flex justify-between items-center bg-white/[0.02]">
+                        <div class="flex items-center gap-4">
+                            <div class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_12px_#22d3ee] animate-pulse"></div>
+                            <h3 class="text-[10px] font-black text-zinc-400 uppercase tracking-[0.4em]">Neural Stream Log</h3>
+                        </div>
+                        <div id="progressText" class="text-[10px] font-mono text-cyan-400 font-bold bg-cyan-400/10 px-4 py-2 rounded-xl">CORE: READY</div>
                     </div>
                     
-                    <div class="h-1 bg-slate-800 w-full flex">
-                        <div id="progressFill" class="h-full bg-cyan-500 shadow-[0_0_10px_#06b6d4] w-0 progress-fill"></div>
+                    <div class="h-1 bg-zinc-950 w-full relative">
+                        <div id="progressFill" class="h-full progress-fill w-0"></div>
                     </div>
 
-                    <div id="logOutput" class="flex-1 p-6 font-mono text-[11px] overflow-y-auto space-y-1 text-slate-400">
-                        <div class="text-slate-600 italic">&gt; Welcome. Upload a file to begin the dual-engine enhancement.</div>
+                    <div id="logOutput" class="flex-1 p-10 font-mono text-[12px] overflow-y-auto space-y-1 text-zinc-600 leading-relaxed scrollbar-hide">
+                        <div class="text-zinc-800 italic">&gt; BIT-X Master engine initialized. Awaiting data stream...</div>
                     </div>
 
-                    <div id="resultArea" class="hidden p-6 bg-slate-900/80 border-t border-white/5">
-                        <div class="grid grid-cols-2 gap-3 mb-4">
-                            <div class="p-3 bg-slate-950 rounded border border-slate-800">
-                                <div class="text-[9px] text-slate-600 mb-1">NORMAL GOOGLE BASE</div>
-                                <div id="prevBase" class="text-[11px] line-clamp-2 text-slate-400 italic"></div>
+                    <div id="resultArea" class="hidden p-10 bg-black/80 border-t border-zinc-800 backdrop-blur-2xl">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                            <div class="space-y-4">
+                                <p class="text-[9px] font-black text-zinc-700 uppercase tracking-widest ml-1 italic">Input (EN)</p>
+                                <div id="prevOrig" class="p-6 bg-zinc-900/40 rounded-3xl border border-zinc-800 text-xs text-zinc-500 italic min-h-[60px]"></div>
                             </div>
-                            <div class="p-3 bg-slate-950 rounded border border-cyan-900/30">
-                                <div class="text-[9px] text-cyan-600 mb-1">PUTER AI ENHANCED</div>
-                                <div id="prevEn" class="text-[11px] line-clamp-2 text-cyan-100 font-bold"></div>
+                            <div class="space-y-4">
+                                <p class="text-[9px] font-black text-cyan-700 uppercase tracking-widest ml-1 italic">Output (SI)</p>
+                                <div id="prevEn" class="p-6 bg-cyan-400/5 rounded-3xl border border-cyan-400/20 text-xs text-white font-bold leading-relaxed min-h-[60px]"></div>
                             </div>
                         </div>
-                        <button onclick="downloadSRT()" class="w-full py-3 bg-emerald-500/10 border border-emerald-500/50 text-emerald-400 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-emerald-500 hover:text-slate-950 transition-all">
-                            Save Enhanced Subtitles
+                        <button onclick="downloadSRT()" class="w-full py-5 bg-white text-black rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] hover:bg-cyan-400 hover:text-white transition-all shadow-2xl">
+                            Export Production Master
                         </button>
                     </div>
                 </div>
@@ -144,9 +205,8 @@
     <script>
         let srtBlocks = [];
         let translatedBlocks = [];
-        let targetFileName = "enhanced_subtitles.srt";
+        let targetFileName = "bitx_puter_master.srt";
 
-        // Element handles
         const fileInput = document.getElementById('fileInput');
         const dropZone = document.getElementById('dropZone');
         const translateBtn = document.getElementById('translateBtn');
@@ -155,17 +215,24 @@
         const progressText = document.getElementById('progressText');
         const resultArea = document.getElementById('resultArea');
 
+        // Intro
+        window.addEventListener('DOMContentLoaded', () => {
+            gsap.to("#mainHeader", { opacity: 1, y: 0, duration: 1.2, ease: "expo.out" });
+            gsap.from("#leftPanel", { x: -30, opacity: 0, duration: 1, delay: 0.2 });
+            gsap.from("#rightPanel", { x: 30, opacity: 0, duration: 1, delay: 0.2 });
+        });
+
         dropZone.onclick = () => fileInput.click();
         fileInput.onchange = (e) => handleFile(e.target.files[0]);
 
         function handleFile(file) {
             if (!file || !file.name.endsWith('.srt')) return;
-            targetFileName = file.name.replace('.srt', '_puter_enhanced.srt');
-            document.getElementById('fileNameDisplay').innerText = file.name;
+            targetFileName = file.name.replace('.srt', '_Localized.srt');
+            document.getElementById('fileNameDisplay').innerText = `READY: ${file.name}`;
             const reader = new FileReader();
             reader.onload = (e) => {
                 srtBlocks = parseSRT(e.target.result);
-                addLog(`File analysis complete: ${srtBlocks.length} subtitle units found.`, "text-emerald-500");
+                addLog(`Inbound data parsed. Found ${srtBlocks.length} subtitle units.`, "text-cyan-400 font-bold");
                 translateBtn.disabled = false;
             };
             reader.readAsText(file);
@@ -179,51 +246,25 @@
             }).filter(x => x);
         }
 
-        function addLog(msg, color = "text-slate-500") {
+        function addLog(msg, color = "text-zinc-700") {
             const div = document.createElement('div');
-            div.className = color;
-            div.innerHTML = `<span class="opacity-30 mr-2">></span> ${msg}`;
+            div.className = `log-entry ${color}`;
+            div.innerHTML = `<span class="opacity-10 mr-3">></span> ${msg}`;
             logOutput.appendChild(div);
             logOutput.scrollTop = logOutput.scrollHeight;
         }
 
-        // STAGE 1: Fast Base Translation
-        async function googleTranslate(text) {
-            try {
-                const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=si&dt=t&q=${encodeURIComponent(text)}`;
-                const res = await fetch(url);
-                const data = await res.json();
-                return data[0].map(x => x[0]).join('');
-            } catch (e) {
-                return text;
-            }
-        }
+        async function aiTranslate(originalTexts, style, model) {
+            const persona = style === 'funny' 
+                ? "You are a 'Witty Sinhala Cinematic Editor'. Translate English subtitles into natural, funny, and native spoken Sinhala dialogue."
+                : "You are a 'Serious Cinematic Poet'. Translate English subtitles into formal, beautiful, and dramatic cinematic Sinhala.";
 
-        // STAGE 2: Puter AI Enhancement
-        async function puterEnhance(originalTexts, baseTranslations, style) {
-            const stylePrompts = {
-                conversational: "Re-write the Sinhala to be funny and natural spoken language.",
-                formal: "Re-write the Sinhala to be formal, respectful, and literary.",
-                slang: "Re-write the Sinhala using modern cool slang and natural youth expressions."
-            };
-
-            const dataToProcess = originalTexts.map((orig, i) => `[${i+1}] Original English: ${orig} | Google Translation: ${baseTranslations[i]}`).join('\n');
-            
-            const prompt = `You are a professional subtitle translator. You are given English subtitle lines and a basic Google translation into Sinhala.
-Your goal is to RE-WRITE the Sinhala to be perfect and natural.
-
-Rules:
-1. Preserve all HTML tags like <i>.
-2. Tone: ${stylePrompts[style]}.
-3. Format the response EXACTLY like this: [1] Enhanced Text
-4. Return ONLY the enhanced Sinhala lines.
-
-Subtitles:
-${dataToProcess}`;
+            const content = originalTexts.map((orig, i) => `[${i+1}] EN: ${orig}`).join('\n');
+            const systemPrompt = `PERSONA: ${persona}\nTASK: Translate English subtitles into perfect Sinhala.\nRULES:\n1. Maintain HTML tags (<i>, etc.).\n2. Output format: [number] Translated Text.\n3. NO English, NO notes, NO small talk.`;
 
             try {
-                // Using Puter AI SDK
-                const response = await puter.ai.chat(prompt);
+                // Internal model mapping for Puter
+                const response = await puter.ai.chat(systemPrompt + "\n\nSUBTITLES:\n" + content, { model: model });
                 const resultText = response.toString();
                 
                 const finalLines = new Array(originalTexts.length).fill("");
@@ -234,21 +275,25 @@ ${dataToProcess}`;
                         if (idx >= 0 && idx < finalLines.length) finalLines[idx] = m[2].trim();
                     }
                 });
-                return finalLines.map((l, i) => l || baseTranslations[i]);
+                return finalLines.map((l, i) => l || originalTexts[i]);
             } catch (err) {
-                console.error("Puter AI Error:", err);
-                return baseTranslations; // Fallback
+                console.error(err);
+                return originalTexts;
             }
         }
 
         translateBtn.onclick = async () => {
             translateBtn.disabled = true;
-            const batchSize = parseInt(document.getElementById('batchSize').value);
+            const model = document.getElementById('modelSelect').value;
             const style = document.getElementById('style').value;
             const total = srtBlocks.length;
             translatedBlocks = [];
             
-            addLog("Initializing Puter AI Engine...", "text-cyan-500 font-bold");
+            addLog(`Direct AI Ingress Started... Neural Engine: ${model}`, "text-cyan-400 font-black italic uppercase tracking-widest");
+            resultArea.classList.remove('hidden');
+            gsap.from(resultArea, { opacity: 0, y: 30, duration: 0.8 });
+
+            const batchSize = 30; 
 
             for (let i = 0; i < total; i += batchSize) {
                 const batch = srtBlocks.slice(i, i + batchSize);
@@ -256,28 +301,22 @@ ${dataToProcess}`;
                 const totalBatches = Math.ceil(total / batchSize);
 
                 progressText.innerText = `PHASE ${batchNum}/${totalBatches}`;
-                addLog(`Batch ${batchNum}: Generating base translation...`, "text-slate-400");
+                addLog(`[Batch ${batchNum}] Running pure AI localization...`, "text-zinc-600");
                 
-                // Parallel Google Translate
-                const baseTranslations = await Promise.all(batch.map(b => googleTranslate(b.text)));
-                
-                addLog(`Batch ${batchNum}: AI Enhancement via Puter...`, "text-purple-400");
-                
-                // Puter AI Enhancement
-                const enhancedTexts = await puterEnhance(batch.map(b => b.text), baseTranslations, style);
+                const translatedTexts = await aiTranslate(batch.map(b => b.text), style, model);
 
                 batch.forEach((block, idx) => {
-                    translatedBlocks.push({ ...block, text: enhancedTexts[idx] });
+                    translatedBlocks.push({ ...block, text: translatedTexts[idx] });
                 });
 
-                // Update UI
-                progressFill.style.width = `${((i + batchSize) / total) * 100}%`;
-                document.getElementById('prevBase').innerText = baseTranslations[0];
-                document.getElementById('prevEn').innerText = enhancedTexts[0];
-                resultArea.classList.remove('hidden');
+                const progress = ((i + batchSize) / total) * 100;
+                gsap.to(progressFill, { width: `${progress}%`, duration: 0.5 });
+                
+                document.getElementById('prevOrig').innerText = batch[0].text;
+                document.getElementById('prevEn').innerText = translatedTexts[0];
             }
 
-            addLog("Success! Subtitles have been enhanced and polished.", "text-emerald-500 font-bold");
+            addLog("All neural sequences processed. AI Master Output ready.", "text-emerald-500 font-black uppercase tracking-widest");
             progressText.innerText = "COMPLETE";
             translateBtn.disabled = false;
         };
