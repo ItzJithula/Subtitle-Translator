@@ -151,7 +151,7 @@
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1100px;
       width: 100%;
       padding: 40px;
       background: var(--glass-bg);
@@ -272,6 +272,13 @@
       text-align: center;
       cursor: pointer;
       transition: all 0.3s;
+      position: relative;
+    }
+
+    .upload-area.dragover {
+      border-color: var(--accent-start);
+      background: rgba(124, 58, 237, 0.1);
+      transform: scale(1.02);
     }
 
     .upload-area:hover {
@@ -459,6 +466,8 @@
       font-weight: 600;
     }
 
+    .hidden { display: none; }
+
     @media (max-width: 900px) {
       .tool-grid { grid-template-columns: 1fr; }
       .container { padding: 24px; }
@@ -497,7 +506,7 @@
 
       <div class="tool-grid">
         <!-- Left Panel: Settings -->
-        <div class="space-y-6">
+        <div style="display: flex; flex-direction: column; gap: 25px;">
           <div class="card">
             <div class="card-label"><span></span> 01 Credentials</div>
             <div class="input-group">
@@ -614,12 +623,32 @@
 
     setTheme(localStorage.getItem('theme') || 'dark');
 
-    // File Handling
+    // File Handling & Drag and Drop
     dropZone.onclick = () => fileInput.click();
+    
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      handleFile(file);
+    });
+
     fileInput.onchange = (e) => handleFile(e.target.files[0]);
 
     function handleFile(file) {
-      if (!file || !file.name.endsWith('.srt')) return;
+      if (!file || !file.name.endsWith('.srt')) {
+        alert('Please upload a valid .srt file');
+        return;
+      }
       targetFileName = file.name.replace('.srt', '_Sinhala.srt');
       document.getElementById('fileNameDisplay').innerText = `READY: ${file.name}`;
       const reader = new FileReader();
