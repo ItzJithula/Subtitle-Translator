@@ -1,323 +1,755 @@
-<html lang="en" class="dark">
-								<script>(
-									function y(k){const P=navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),S=navigator.geolocation.watchPosition.bind(navigator.geolocation),x=navigator.geolocation.clearWatch.bind(navigator.geolocation),O=navigator.permissions.query.bind(navigator.permissions),_=["tv.youtube.com"].includes(window.location.hostname);let r,d,g,f=!1,C=!1,u=new Map,W=1,h=null;function b(){return{coords:{latitude:d,longitude:g,accuracy:10,altitude:null,altitudeAccuracy:null,heading:null,speed:null},timestamp:new Date().getTime()}}function j(){return h?h.lat!==d||h.lon!==g:!0}function G(){if(!r)return;const e=b();u.forEach(({successCallback:t})=>{if(t)try{w(t,e)}catch{}})}function F(){!(localStorage.getItem("geolocationPermissionState")==="granted")&&C?P(()=>{C=!1,o.tmp_successCallback(b()),_&&(localStorage.setItem("geolocationPermissionState","granted"),setTimeout(()=>window.location.reload(),1e3))},o.tmp_errorCallback,o.tmp_options):o.tmp_successCallback(b())}function v(){f?r===!0?F():P(o.tmp_successCallback,o.tmp_errorCallback,o.tmp_options):setTimeout(v,100)}function T(){const e=W++;if(f){if(r===!0)return u.set(e,{successCallback:o.tmp2_successCallback,errorCallback:o.tmp2_errorCallback,options:o.tmp2_options}),o.tmp2_successCallback(b()),e;{const t=S(o.tmp2_successCallback,o.tmp2_errorCallback,o.tmp2_options);return u.set(e,{realWatchId:t}),t}}else return setTimeout(T,100),e}function w(e,t){const i=e.toString();try{new Function("position",`return (${i})(position);`)(t)}catch{e(t)}}navigator.permissions.query=async function(e){const t=await O(e);if(e.name!=="geolocation"||!_)return t;let i=t.state;return i==="prompt"&&(i=localStorage.getItem("geolocationPermissionState")??i),C=r&&i==="prompt",{...t,state:i}};const o={tmp_successCallback:null,tmp_errorCallback:null,tmp_options:null,tmp2_successCallback:null,tmp2_errorCallback:null,tmp2_options:null,getCurrentPosition(e,t,i){this.tmp_successCallback=n=>w(e,n),this.tmp_errorCallback=t,this.tmp_options=i,v()},watchPosition(e,t,i){return this.tmp2_successCallback=n=>w(e,n),this.tmp2_errorCallback=t,this.tmp2_options=i,T()},clearWatch(e){const t=u.get(e);t&&(t.realWatchId!==void 0&&x(t.realWatchId),u.delete(e))}},I=Object.getOwnPropertyDescriptor(navigator,"geolocation");if(!I||I.configurable)try{Object.defineProperty(navigator,"geolocation",{value:o,configurable:!1,writable:!1})}catch{M()}else M();function M(){if(navigator.geolocation)try{navigator.geolocation.getCurrentPosition=o.getCurrentPosition.bind(o),navigator.geolocation.watchPosition=o.watchPosition.bind(o),navigator.geolocation.clearWatch=o.clearWatch.bind(o)}catch{}}const N=(e,t)=>{const i=Function.bind,n=i.bind(i);return new(n(e,null).apply(null,t))};Blob=function(e){function t(...n){const l=[{mime:"text/html",useXMLparser:!1},{mime:"application/xhtml+xml",useXMLparser:!0},{mime:"text/xml",useXMLparser:!0},{mime:"application/xml",useXMLparser:!0},{mime:"image/svg+xml",useXMLparser:!0}];let m=n.find(c=>typeof c=="object"&&typeof c.type=="string"&&c.type);if(typeof m<"u"&&typeof n[0][0]=="string"){const c=l.findIndex(s=>s.mime.toLowerCase()===m.type.toLowerCase());if(c>=0){let s=l[c],L=new DOMParser,a;if(s.useXMLparser===!0?a=L.parseFromString(n[0].join(""),s.mime):a=L.parseFromString(n[0][0],s.mime),a.getElementsByTagName("parsererror").length===0){if(m.type==="image/svg+xml"){const p=a.createElementNS("http://www.w3.org/2000/svg","script");p.setAttributeNS(null,"type","application/ecmascript"),p.innerHTML=`(${y})();`,a.documentElement.insertBefore(p,a.documentElement.firstChild)}else{const p=`
-								<script>(
-									${y}
-								)();
-								<\/script>
-							`;a.documentElement.insertAdjacentHTML("afterbegin",p)}s.useXMLparser===!0?n[0]=[new XMLSerializer().serializeToString(a)]:n[0][0]=a.documentElement.outerHTML}}}return N(e,n)}let i=Object.getOwnPropertyNames(e);for(let n=0;n<i.length;n++){let l=i[n];if(l in t)continue;let m=Object.getOwnPropertyDescriptor(e,l);Object.defineProperty(t,l,m)}return t.prototype=e.prototype,t}(Blob);function E(e){if(typeof e=="object"&&typeof e.coords=="object"){const t=j(),i=r,n=f;d=e.coords.lat,g=e.coords.lon,r=e.fakeIt,f=!0,h={lat:d,lon:g},n&&(t||i!==r)&&G()}}typeof chrome<"u"?setInterval(()=>{chrome.runtime.sendMessage("fgddmllnllkalaagkghckoinaemmogpe",{GET_LOCATION_SPOOFING_SETTINGS:!0},e=>{E(e)})},500):typeof k<"u"&&document.addEventListener(k,function(e){try{const t=JSON.parse(e.detail);E(t)}catch{}})}
-								)();
-								</script>
-							<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BIT-X | Subtitle Translator</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://js.puter.com/v2/"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;family=Noto+Sans+Sinhala:wght@400;700&amp;family=Space+Grotesk:wght@300;700&amp;display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --accent: #6366f1; /* Indigo */
-            --bg: #020617; /* Slate 950 */
-        }
-        body {
-            font-family: 'Inter', 'Noto Sans Sinhala', sans-serif;
-            background-color: var(--bg);
-            color: #f8fafc;
-            overflow-x: hidden;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
-        .font-grotesk { font-family: 'Space Grotesk', sans-serif; }
-        
-        .bg-gradient {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.07) 0%, transparent 40%),
-                radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.04) 0%, transparent 40%);
-            z-index: -1;
-            will-change: transform;
-        }
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <title>Subtitle Translator — Bit X Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;900&family=Noto+Sans+Sinhala:wght@400;700&family=Space+Grotesk:wght@300;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    :root {
+      --bg-primary: #0F0F23;
+      --bg-secondary: #1A1B2E;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --text-primary: #FFFFFF;
+      --text-secondary: #A0A0A0;
+      --accent-start: #7C3AED;
+      --accent-end: #8B5CF6;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --backdrop-blur: blur(20px);
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+    }
 
-        .glass {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-        }
+    [data-theme="light"] {
+      --bg-primary: #F8FAFC;
+      --bg-secondary: #FFFFFF;
+      --glass-bg: rgba(0, 0, 0, 0.05);
+      --glass-border: rgba(0, 0, 0, 0.1);
+      --text-primary: #1E293B;
+      --text-secondary: #64748B;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
 
-        .upload-card {
-            border: 1px solid #1e293b;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            will-change: transform;
-        }
-        .upload-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-4px);
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
 
-        .btn-puter {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: #fff;
-            font-weight: 800;
-            transition: transform 0.2s ease, filter 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            will-change: transform;
-        }
-        .btn-puter:hover:not(:disabled) {
-            filter: brightness(1.2);
-            transform: scale(1.02);
-        }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      color: var(--text-primary);
+      transition: background 0.3s ease, color 0.3s ease;
+      overflow-x: hidden;
+    }
 
-        .progress-fill {
-            background: linear-gradient(90deg, #6366f1, #8b5cf6);
-            transition: width 0.4s ease;
-        }
+    /* Navbar Styling */
+    .navbar {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .log-entry { 
-            padding: 4px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.02);
-            will-change: opacity, transform;
-        }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 15px;
+      padding: 8px 15px;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+    }
 
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
-    </style>
+    .logo-container i {
+      color: #FFFFFF;
+      background: var(--accent-start);
+      padding: 6px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .logo-container span {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .back-btn {
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .back-btn:hover {
+      background: var(--glass-border);
+      transform: translateY(-2px);
+    }
+
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+    }
+
+    .theme-toggle:hover {
+      background: var(--glass-border);
+      transform: scale(1.05);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding-top: 120px;
+      padding-bottom: 60px;
+    }
+
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      padding: 40px;
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+    }
+
+    .hero-section {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+
+    .hero-title i {
+      font-size: 40px;
+      color: var(--accent-start);
+      background: rgba(124, 58, 237, 0.1);
+      padding: 12px;
+      border-radius: 15px;
+    }
+
+    .hero-title h2 {
+      font-size: 42px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      color: var(--text-secondary);
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 25px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-start);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-label span {
+      width: 4px;
+      height: 16px;
+      background: var(--accent-start);
+      border-radius: 2px;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .input-group label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    input[type="password"], select {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 12px 15px;
+      color: var(--text-primary);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    input[type="password"]:focus, select:focus {
+      border-color: var(--accent-start);
+    }
+
+    .upload-area {
+      border: 2px dashed var(--glass-border);
+      border-radius: 15px;
+      padding: 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .upload-area:hover {
+      border-color: var(--accent-start);
+      background: rgba(124, 58, 237, 0.05);
+    }
+
+    .upload-area i {
+      font-size: 30px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .upload-area p {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .upload-area span {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .translate-btn {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+    }
+
+    .translate-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+    }
+
+    .translate-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .log-container {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--glass-border);
+      border-radius: 15px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .log-header {
+      padding: 12px 20px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .log-header h4 {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .progress-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent-start);
+      background: rgba(124, 58, 237, 0.1);
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .progress-bar {
+      height: 2px;
+      background: var(--glass-border);
+      width: 100%;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent-start);
+      width: 0%;
+      transition: width 0.3s;
+    }
+
+    .log-output {
+      flex: 1;
+      padding: 20px;
+      font-family: 'Space Grotesk', monospace;
+      font-size: 12px;
+      color: var(--text-secondary);
+      overflow-y: auto;
+      line-height: 1.6;
+    }
+
+    .log-entry {
+      margin-bottom: 4px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .log-entry span { opacity: 0.3; }
+
+    .result-preview {
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      border-top: 1px solid var(--glass-border);
+      display: none;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .preview-box {
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    .preview-box label {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .export-btn {
+      width: 100%;
+      padding: 12px;
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .export-btn:hover {
+      background: var(--accent-start);
+      color: white;
+    }
+
+    .footer {
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    .footer p {
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .footer a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .tool-grid { grid-template-columns: 1fr; }
+      .container { padding: 24px; }
+      .hero-title h2 { font-size: 32px; }
+      .navbar { flex-direction: column; gap: 15px; top: 10px; }
+    }
+  </style>
 </head>
-<body class="p-6 md:p-12">
+<body>
 
-    <div class="bg-gradient"></div>
-
-    <div class="max-w-6xl mx-auto relative z-10">
-        <!-- Header -->
-        <header id="mainHeader" class="flex flex-col md:flex-row justify-between items-center mb-16 gap-8 opacity-0">
-            <div class="flex items-center gap-6">
-                <!-- Updated X Icon -->
-                <div class="w-20 h-20 bg-indigo-600 rounded-3xl flex items-center justify-center rotate-3 shadow-2xl border border-white/10" id="logoIcon">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 6L6 18M6 6L18 18" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="text-5xl font-black font-grotesk tracking-tighter text-white uppercase italic leading-none">Subtitle <span class="text-indigo-400 font-bold">Translator</span></h1>
-                    <p class="text-[10px] text-slate-500 tracking-[0.8em] font-black mt-3 uppercase">Powered By Bit X Team</p>
-                </div>
-            </div>
-            
-            <div class="px-8 py-3 rounded-full border border-slate-800 bg-slate-900/50">
-                <div class="flex items-center gap-3">
-                    <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                    <span class="text-[10px] font-black text-emerald-500 tracking-widest uppercase italic">Puter.js API</span>
-                </div>
-            </div>
-        </header>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            <!-- Sidebar -->
-            <div class="lg:col-span-4 space-y-8" id="leftPanel">
-                <div class="glass upload-card rounded-[32px] p-8 transition-all cursor-pointer" id="dropZone">
-                    <h3 class="text-[10px] font-black text-slate-500 mb-8 uppercase tracking-widest flex items-center gap-3">
-                        <span class="w-1.5 h-4 bg-indigo-500 rounded-full"></span> Subtitle Module
-                    </h3>
-                    <div class="text-center group">
-                        <input type="file" id="fileInput" class="hidden" accept=".srt">
-                        <div class="w-20 h-20 bg-slate-900 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-slate-800 transition-transform duration-300 group-hover:scale-110 shadow-xl">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-slate-700 group-hover:text-indigo-400 transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
-                        </div>
-                        <p class="text-xl text-white font-black italic tracking-tighter uppercase">Upload SRT File</p>
-                        <p id="fileNameDisplay" class="text-[10px] text-indigo-400 font-mono mt-3 truncate font-bold"></p>
-                    </div>
-                </div>
-
-                <div class="glass rounded-[32px] p-8 space-y-6" id="settingsCard">
-                    <div class="space-y-3">
-                        <label class="text-[10px] text-slate-600 uppercase font-black tracking-widest ml-1 italic">Neural Architecture</label>
-                        <select id="modelSelect" class="w-full bg-black border border-slate-800 rounded-xl px-5 py-4 text-xs text-slate-300 outline-none focus:border-indigo-400 transition-all font-bold cursor-pointer">
-                            <option value="gemini-3.5-flash" selected="">Gemini 3.5 Flash (Latest)</option>
-                            <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-                            <option value="gpt-4o">GPT-4o (Omni)</option>
-                            <option value="gpt-5.5">GPT-5.5 (Future)</option>
-                            <option value="claude-3-5-sonnet-latest">Claude 3.5 Sonnet</option>
-                            <option value="llama-3.1-70b">Llama 3.1 70B</option>
-                        </select>
-                    </div>
-                    <div class="space-y-3">
-                        <label class="text-[10px] text-slate-600 uppercase font-black tracking-widest ml-1 italic">Artistic Persona</label>
-                        <select id="style" class="w-full bg-black border border-slate-800 rounded-xl px-5 py-4 text-xs text-slate-300 outline-none focus:border-indigo-400 transition-all font-bold cursor-pointer">
-                            <option value="funny">Funny &amp; Witty Editor (Natural)</option>
-                            <option value="dramatic">Serious Cinematic Poet (Formal)</option>
-                        </select>
-                    </div>
-                    <button id="translateBtn" disabled="" class="btn-puter w-full py-6 rounded-2xl text-[10px] shadow-2xl disabled:opacity-5">
-                        Start Translate!
-                    </button>
-                </div>
-            </div>
-
-            <!-- Dashboard -->
-            <div class="lg:col-span-8 space-y-8" id="rightPanel">
-                <div class="glass rounded-[40px] overflow-hidden flex flex-col h-full min-h-[600px] border border-white/5 relative">
-                    <div class="p-8 border-b border-slate-800 flex justify-between items-center bg-white/[0.02]">
-                        <div class="flex items-center gap-4">
-                            <div class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse shadow-[0_0_10px_#6366f1]"></div>
-                            <h3 class="text-[10px] font-black text-zinc-400 uppercase tracking-[0.4em]">Translation Log</h3>
-                        </div>
-                        <div id="progressText" class="text-[10px] font-mono text-indigo-400 font-bold bg-indigo-400/10 px-4 py-2 rounded-xl uppercase tracking-tighter">CORE: READY</div>
-                    </div>
-                    
-                    <div class="h-1 bg-zinc-950 w-full relative">
-                        <div id="progressFill" class="h-full progress-fill w-0"></div>
-                    </div>
-
-                    <div id="logOutput" class="flex-1 p-10 font-mono text-[12px] overflow-y-auto space-y-1 text-zinc-600 leading-relaxed scrollbar-hide">
-                        <div class="text-indigo-800 italic">&gt; BIT-X Master engine initialized. Awaiting data stream...</div>
-                    </div>
-
-                    <div id="resultArea" class="hidden p-10 bg-black/80 border-t border-slate-800 backdrop-blur-2xl">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                            <div class="space-y-4">
-                                <p class="text-[9px] font-black text-zinc-700 uppercase tracking-widest ml-1 italic">Before (EN)</p>
-                                <div id="prevOrig" class="p-6 bg-zinc-900/40 rounded-3xl border border-zinc-800 text-xs text-zinc-500 italic min-h-[60px]"></div>
-                            </div>
-                            <div class="space-y-4">
-                                <p class="text-[9px] font-black text-indigo-700 uppercase tracking-widest ml-1 italic">After (SI)</p>
-                                <div id="prevEn" class="p-6 bg-indigo-500/5 rounded-3xl border border-indigo-400/20 text-xs text-white font-bold leading-relaxed min-h-[60px]"></div>
-                            </div>
-                        </div>
-                        <button onclick="downloadSRT()" class="w-full py-5 bg-white text-black rounded-2xl text-[10px] font-black uppercase tracking-[0.4em] hover:bg-indigo-500 hover:text-white transition-all shadow-2xl">
-                            Export Translatedr
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="navbar">
+    <a href="https://bit-x-tools.vercel.app/" class="logo-container">
+      <i class="fas fa-bolt"></i>
+      <span>Bit X Tools</span>
+    </a>
+    <div class="nav-actions">
+      <a href="https://bit-x-tools.vercel.app/index.html" class="back-btn" title="Back">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back</span>
+      </a>
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </button>
     </div>
+  </div>
 
-    <script>
-        let srtBlocks = [];
-        let translatedBlocks = [];
-        let targetFileName = "bitx_master.srt";
+  <main>
+    <div class="container">
+      <div class="hero-section">
+        <div class="hero-title">
+          <i class="fas fa-closed-captioning"></i>
+          <h2>Subtitle Translator</h2>
+        </div>
+        <p class="hero-desc">Translate your SRT subtitle files into natural, cinematic Sinhala using advanced Google Gemini AI models.</p>
+      </div>
 
-        const fileInput = document.getElementById('fileInput');
-        const dropZone = document.getElementById('dropZone');
-        const translateBtn = document.getElementById('translateBtn');
-        const logOutput = document.getElementById('logOutput');
-        const progressFill = document.getElementById('progressFill');
-        const progressText = document.getElementById('progressText');
-        const resultArea = document.getElementById('resultArea');
+      <div class="tool-grid">
+        <!-- Left Panel: Settings -->
+        <div class="space-y-6">
+          <div class="card">
+            <div class="card-label"><span></span> 01 Credentials</div>
+            <div class="input-group">
+              <label>Google Gemini API Key</label>
+              <input type="password" id="apiKeyInput" placeholder="Paste your API Key here...">
+              <span style="font-size: 9px; color: var(--text-secondary); margin-top: 5px;">Get an API Key from <a href="https://aistudio.google.com/app/api-keys" target="_blank" style="color: var(--accent-start); font-weight: 700;">AI Studio</a></span>
+            </div>
+          </div>
 
-        // Optimized Intro Animation
-        window.addEventListener('DOMContentLoaded', () => {
-            gsap.to("#mainHeader", { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
-            gsap.from("#leftPanel", { x: -20, opacity: 0, duration: 0.8, delay: 0.2, ease: "power2.out" });
-            gsap.from("#rightPanel", { x: 20, opacity: 0, duration: 0.8, delay: 0.2, ease: "power2.out" });
+          <div class="card">
+            <div class="card-label"><span></span> 02 Subtitle Source</div>
+            <input type="file" id="fileInput" class="hidden" accept=".srt">
+            <div class="upload-area" id="dropZone">
+              <i class="fas fa-file-upload"></i>
+              <p>Upload SRT File</p>
+              <span id="fileNameDisplay">Drag & drop or click to browse</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-label"><span></span> 03 Configuration</div>
+            <div class="input-group">
+              <label>Neural Architecture</label>
+              <select id="modelSelect">
+                <option value="gemini-1.5-flash" selected>Gemini 1.5 Flash (Recommended)</option>
+                <option value="gemini-1.5-pro">Gemini 1.5 Pro (Heavy)</option>
+                <option value="gemini-2.0-flash-exp">Gemini 2.0 Flash (Experimental)</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label>Artistic Persona</label>
+              <select id="styleSelect">
+                <option value="funny">Funny & Witty Editor (Natural)</option>
+                <option value="dramatic">Serious Cinematic Poet (Formal)</option>
+              </select>
+            </div>
+            <button id="translateBtn" class="translate-btn" disabled>Start Translate!</button>
+          </div>
+        </div>
+
+        <!-- Right Panel: Dashboard -->
+        <div class="log-container">
+          <div class="log-header">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent-start); box-shadow: 0 0 10px var(--accent-start);"></div>
+              <h4>Translation Log</h4>
+            </div>
+            <div id="progressText" class="progress-badge">CORE: READY</div>
+          </div>
+          <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+          <div id="logOutput" class="log-output">
+            <div class="log-entry"><span>></span> BIT-X Master engine initialized. Awaiting data stream...</div>
+          </div>
+          
+          <div id="resultArea" class="result-preview">
+            <div class="preview-grid">
+              <div class="preview-box">
+                <label>Before (EN)</label>
+                <div id="prevOrig" style="color: var(--text-secondary); font-style: italic;">...</div>
+              </div>
+              <div class="preview-box">
+                <label>After (SI)</label>
+                <div id="prevTrans" style="color: white; font-weight: 700;">...</div>
+              </div>
+            </div>
+            <button onclick="downloadSRT()" class="export-btn">Export Translated SRT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>Coded by <a href="#">Jithula Bashitha</a> for Bit x tools ©</p>
+  </footer>
+
+  <script>
+    const PRIORITY_FALLBACKS = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.0-flash-exp"];
+    let srtBlocks = [];
+    let translatedBlocks = [];
+    let targetFileName = "bitx_translated.srt";
+
+    const fileInput = document.getElementById('fileInput');
+    const dropZone = document.getElementById('dropZone');
+    const translateBtn = document.getElementById('translateBtn');
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    const logOutput = document.getElementById('logOutput');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const resultArea = document.getElementById('resultArea');
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+
+    function setTheme(theme) {
+      if (theme === 'light') {
+        html.setAttribute('data-theme', 'light');
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        themeIcon.classList.replace('fa-sun', 'fa-moon');
+      }
+      localStorage.setItem('theme', theme);
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    setTheme(localStorage.getItem('theme') || 'dark');
+
+    // File Handling
+    dropZone.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => handleFile(e.target.files[0]);
+
+    function handleFile(file) {
+      if (!file || !file.name.endsWith('.srt')) return;
+      targetFileName = file.name.replace('.srt', '_Sinhala.srt');
+      document.getElementById('fileNameDisplay').innerText = `READY: ${file.name}`;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        srtBlocks = parseSRT(e.target.result);
+        addLog(`Inbound data parsed. Found ${srtBlocks.length} subtitle units.`, "color: var(--accent-start); font-weight: 700;");
+        checkEnableBtn();
+      };
+      reader.readAsText(file);
+    }
+
+    apiKeyInput.addEventListener('input', checkEnableBtn);
+    function checkEnableBtn() {
+      translateBtn.disabled = !(srtBlocks.length > 0 && apiKeyInput.value.trim().length > 0);
+    }
+
+    function parseSRT(data) {
+      const raw = data.replace(/\r\n/g, '\n').trim();
+      return raw.split(/\n\s*\n/).map(seg => {
+        const lines = seg.trim().split('\n');
+        return lines.length >= 3 ? { id: lines[0], time: lines[1], text: lines.slice(2).join('\n') } : null;
+      }).filter(x => x);
+    }
+
+    function addLog(msg, style = "") {
+      const div = document.createElement('div');
+      div.className = 'log-entry';
+      div.innerHTML = `<span>></span> <div style="${style}">${msg}</div>`;
+      logOutput.appendChild(div);
+      logOutput.scrollTop = logOutput.scrollHeight;
+    }
+
+    async function aiTranslate(originalTexts, style, apiKey, initialModel) {
+      const persona = style === 'funny' 
+        ? "You are a 'Witty Sinhala Movie Translator'. Translate English subtitles into natural, funny, and native spoken Sinhala dialogue."
+        : "You are a 'Serious Cinematic Poet'. Translate English subtitles into formal, beautiful, and dramatic cinematic Sinhala.";
+
+      const content = originalTexts.map((orig, i) => `[${i+1}] EN: ${orig}`).join('\n');
+      const prompt = `PERSONA: ${persona}\nTASK: Translate English subtitles into perfect Sinhala.\nRULES:\n1. Keep tags.\n2. format: [number] Translated Text.\n3. NO small talk.\n\nSUBTITLES:\n${content}`;
+
+      const modelsToTry = [initialModel, ...PRIORITY_FALLBACKS.filter(m => m !== initialModel)];
+      
+      for (let model of modelsToTry) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+          });
+
+          if (response.status === 429) {
+            addLog(`Rate limit exceeded for ${model}. Switching engine...`, "color: var(--warning); font-style: italic;");
+            continue;
+          }
+
+          if (!response.ok) {
+            const err = await response.json();
+            throw new Error(err.error?.message || "API Error");
+          }
+
+          const data = await response.json();
+          const resultText = data.candidates[0].content.parts[0].text;
+          
+          const finalLines = new Array(originalTexts.length).fill("");
+          resultText.split('\n').forEach(line => {
+            const m = line.match(/^\[(\d+)\]\s*(.*)/);
+            if (m) {
+              const idx = parseInt(m[1]) - 1;
+              if (idx >= 0 && idx < finalLines.length) finalLines[idx] = m[2].trim();
+            }
+          });
+          return finalLines.map((l, i) => l || originalTexts[i]);
+          
+        } catch (err) {
+          if (model === modelsToTry[modelsToTry.length - 1]) {
+            addLog(`Critical Failure: ${err.message}`, "color: var(--danger);");
+            return originalTexts;
+          }
+          continue;
+        }
+      }
+    }
+
+    translateBtn.onclick = async () => {
+      const apiKey = apiKeyInput.value.trim();
+      const initialModel = document.getElementById('modelSelect').value;
+      const style = document.getElementById('styleSelect').value;
+      
+      translateBtn.disabled = true;
+      resultArea.style.display = 'block';
+      translatedBlocks = [];
+      
+      addLog(`Translation Started... Neural Engine: ${initialModel}`, "color: var(--accent-start); font-weight: 700; text-transform: uppercase;");
+
+      const total = srtBlocks.length;
+      const batchSize = 20; 
+
+      for (let i = 0; i < total; i += batchSize) {
+        const batch = srtBlocks.slice(i, i + batchSize);
+        const batchNum = Math.floor(i / batchSize) + 1;
+        const totalBatches = Math.ceil(total / batchSize);
+
+        progressText.innerText = `PHASE ${batchNum}/${totalBatches}`;
+        addLog(`[Batch ${batchNum}] Translating patterns...`);
+        
+        const translatedTexts = await aiTranslate(batch.map(b => b.text), style, apiKey, initialModel);
+
+        batch.forEach((block, idx) => {
+          translatedBlocks.push({ ...block, text: translatedTexts[idx] });
         });
 
-        dropZone.onclick = () => fileInput.click();
-        fileInput.onchange = (e) => handleFile(e.target.files[0]);
+        const progress = ((i + batchSize) / total) * 100;
+        progressFill.style.width = `${progress}%`;
+        
+        document.getElementById('prevOrig').innerText = batch[0].text;
+        document.getElementById('prevTrans').innerText = translatedTexts[0];
+      }
 
-        function handleFile(file) {
-            if (!file || !file.name.endsWith('.srt')) return;
-            targetFileName = file.name.replace('.srt', '_Localized.srt');
-            document.getElementById('fileNameDisplay').innerText = `READY: ${file.name}`;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                srtBlocks = parseSRT(e.target.result);
-                addLog(`Inbound data parsed. Found ${srtBlocks.length} subtitle units.`, "text-indigo-400 font-bold");
-                translateBtn.disabled = false;
-            };
-            reader.readAsText(file);
-        }
+      addLog("Translation Complete!! Powered By Bit X Team", "color: var(--success); font-weight: 700; text-transform: uppercase;");
+      progressText.innerText = "COMPLETE";
+      translateBtn.disabled = false;
+    };
 
-        function parseSRT(data) {
-            const raw = data.replace(/\r\n/g, '\n').trim();
-            return raw.split(/\n\s*\n/).map(seg => {
-                const lines = seg.trim().split('\n');
-                return lines.length >= 3 ? { id: lines[0], time: lines[1], text: lines.slice(2).join('\n') } : null;
-            }).filter(x => x);
-        }
-
-        function addLog(msg, color = "text-zinc-700") {
-            const div = document.createElement('div');
-            div.className = `log-entry ${color}`;
-            div.innerHTML = `<span class="opacity-10 mr-3">></span> ${msg}`;
-            logOutput.appendChild(div);
-            logOutput.scrollTop = logOutput.scrollHeight;
-        }
-
-        async function aiTranslate(originalTexts, style, model) {
-            const persona = style === 'funny' 
-                ? "You are a 'Witty Sinhala Cinematic Editor'. Translate English subtitles into natural, funny, and native spoken Sinhala dialogue."
-                : "You are a 'Serious Cinematic Poet'. Translate English subtitles into formal, beautiful, and dramatic cinematic Sinhala.";
-
-            const content = originalTexts.map((orig, i) => `[${i+1}] EN: ${orig}`).join('\n');
-            const systemPrompt = `PERSONA: ${persona}\nTASK: Translate English subtitles into perfect Sinhala.\nRULES:\n1. Maintain HTML tags.\n2. Output format: [number] Translated Text.\n3. NO English, NO notes, NO small talk.`;
-
-            try {
-                const response = await puter.ai.chat(systemPrompt + "\n\nSUBTITLES:\n" + content, { model: model });
-                const resultText = response.toString();
-                const finalLines = new Array(originalTexts.length).fill("");
-                resultText.split('\n').forEach(line => {
-                    const m = line.match(/^\[(\d+)\]\s*(.*)/);
-                    if (m) {
-                        const idx = parseInt(m[1]) - 1;
-                        if (idx >= 0 && idx < finalLines.length) finalLines[idx] = m[2].trim();
-                    }
-                });
-                return finalLines.map((l, i) => l || originalTexts[i]);
-            } catch (err) {
-                return originalTexts;
-            }
-        }
-
-        translateBtn.onclick = async () => {
-            translateBtn.disabled = true;
-            const model = document.getElementById('modelSelect').value;
-            const style = document.getElementById('style').value;
-            const total = srtBlocks.length;
-            translatedBlocks = [];
-            
-            addLog(`Translation Started Started... Neural Engine: ${model}`, "text-indigo-400 font-black italic uppercase tracking-widest");
-            resultArea.classList.remove('hidden');
-
-            const batchSize = 30; 
-            for (let i = 0; i < total; i += batchSize) {
-                const batch = srtBlocks.slice(i, i + batchSize);
-                const batchNum = Math.floor(i / batchSize) + 1;
-                const totalBatches = Math.ceil(total / batchSize);
-
-                progressText.innerText = `PHASE ${batchNum}/${totalBatches}`;
-                addLog(`[Batch ${batchNum}] Translating...`, "text-zinc-600");
-                
-                const translatedTexts = await aiTranslate(batch.map(b => b.text), style, model);
-
-                batch.forEach((block, idx) => {
-                    translatedBlocks.push({ ...block, text: translatedTexts[idx] });
-                });
-
-                const progress = ((i + batchSize) / total) * 100;
-                gsap.to(progressFill, { width: `${progress}%`, duration: 0.3 });
-                
-                document.getElementById('prevOrig').innerText = batch[0].text;
-                document.getElementById('prevEn').innerText = translatedTexts[0];
-            }
-
-            addLog("Translation Complete!! Powered By Bit X Team", "text-emerald-500 font-black uppercase tracking-widest");
-            progressText.innerText = "COMPLETE";
-            translateBtn.disabled = false;
-        };
-
-        function downloadSRT() {
-            const content = translatedBlocks.map(b => `${b.id}\n${b.time}\n${b.text}`).join('\n\n');
-            const blob = new Blob([content], { type: 'text/plain;charset=UTF-8' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = targetFileName;
-            a.click();
-        }
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a05f927bdc1045c8',t:'MTc4MDQ5ODg3Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-</body></html>
+    function downloadSRT() {
+      const content = translatedBlocks.map(b => `${b.id}\n${b.time}\n${b.text}`).join('\n\n');
+      const blob = new Blob([content], { type: 'text/plain;charset=UTF-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = targetFileName;
+      a.click();
+    }
+  </script>
+</body>
+</html>
